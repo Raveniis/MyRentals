@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('address');
-            $table->decimal('price', 6, 2);
+            $table->decimal('price', 11, 2);
             $table->integer('maximum_occupants');
             $table->boolean('status');
-
             $table->timestamps();
+            $table->softDeletes();  
         }); 
     }
 

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use \App\Models\RentalReview;
-
+use App\Models\TenantApplication;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,13 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\HouseRental::factory(7)->create();
-        RentalReview::factory(9)->create();
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call(RentalReviewSeeder::class);
+        $this->call(HouseRentalSeeder::class);
+        $this->call(TenantApplicationSeeder::class);
     }
 }

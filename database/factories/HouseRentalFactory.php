@@ -18,12 +18,12 @@ class HouseRentalFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'name' => Str::random(20),
             'description' => Str::random(20),
             'address' => fake()->address(),
-            'price' => 200.90,
-            'maximum_occupants' => 8,
-            'status' => 1,
+            'price' => fake()->randomFloat(2, 8000, 30000),
+            'maximum_occupants' => fake()->numberBetween(2,8),
+            'status' => fake()->numberBetween(0,1),
         ];
     }
 }
