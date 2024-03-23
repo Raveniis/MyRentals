@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\RentalReview;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +12,6 @@ class RentalReviewSeeder extends Seeder
      */
     public function run(): void
     {
-        RentalReview::factory(10)->create();
+        \App\Models\RentalReview::factory(10)->create();
     }
 }

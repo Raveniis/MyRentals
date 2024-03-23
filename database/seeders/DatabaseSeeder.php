@@ -14,10 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            RentalReviewSeeder::class,
-            HouseRentalSeeder::class,
-            TenantApplicationSeeder::class
-        ]);
+        $this->call(RentalReviewSeeder::class);
+        $this->call(HouseRentalSeeder::class);
+        $this->call(TenantApplicationSeeder::class);
     }
 }

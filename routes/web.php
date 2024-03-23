@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TenantController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +13,6 @@ use App\Http\Controllers\TenantController;
 |
 */
 
-Route::get('/', [TenantController::class, 'getTenants']);
+Route::get('/', function () {
+    return view('welcome');
+});

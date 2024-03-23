@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\TenantApplication;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +12,6 @@ class TenantApplicationSeeder extends Seeder
      */
     public function run(): void
     {
-        TenantApplication::factory(10)->create();
+        \App\Models\TenantApplication::factory(10)->create();
     }
 }
