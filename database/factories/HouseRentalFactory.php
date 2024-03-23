@@ -21,7 +21,7 @@ class HouseRentalFactory extends Factory
             'name' => Str::random(20),
             'description' => Str::random(20),
             'address' => fake()->address(),
-            'price' => fake()->randomFloat(2, 8000, 30000),
+            'monthly_rent' => fake()->randomFloat(2, 8000, 30000),
             'maximum_occupants' => fake()->numberBetween(2,8),
             'status' => fake()->numberBetween(0,1),
         ];
