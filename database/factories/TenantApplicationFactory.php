@@ -21,7 +21,7 @@ class TenantApplicationFactory extends Factory
             'move_in_date' => fake()->dateTimeBetween('now', '+1 year'),
             'lease_term' => fake()->numberBetween(4, 18),
             'monthly_income' => fake()->randomFloat(2, 12000, 50000),
-            'employment_status' => 'employed',   //assumes that all tenant applicants have a job
+            'employment_status' => fake()->randomElement(['employed', 'unemployed']),   //assumes that all tenant applicants have a job
             'application_status' => 'pending',  //all applicants status is pending
         ];
     }
