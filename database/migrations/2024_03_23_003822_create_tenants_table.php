@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('emergency_num');
             $table->text('remarks');
             $table->timestamps(); 
+            $table->softDeletes();  
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('application_id')->references('id')->on('tenant_applications')->onDelete('cascade');

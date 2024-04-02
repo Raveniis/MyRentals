@@ -17,7 +17,9 @@ class RentalReviewFactory extends Factory
     public function definition(): array
     {
         return [
-            'ratings' => fake()->randomFloat(2, 1, 5),
+            'reviewed_by' => fake()->numberBetween(6,10),
+            'rental_id' => fake()->numberBetween(1,10),
+            'ratings' => fake()->numberBetween(1,5),
             'comment' => fake()->sentence()
         ];
     }

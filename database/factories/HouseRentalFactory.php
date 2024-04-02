@@ -18,12 +18,13 @@ class HouseRentalFactory extends Factory
     public function definition(): array
     {
         return [
+            'landowner_id' =>fake()->numberBetween(1,5),
             'name' => Str::random(20),
             'description' => Str::random(20),
             'address' => fake()->address(),
             'monthly_rent' => fake()->randomFloat(2, 8000, 30000),
             'maximum_occupants' => fake()->numberBetween(2,8),
-            'status' => fake()->numberBetween(0,1),
+            'image' => fake()->url()
         ];
     }
 }

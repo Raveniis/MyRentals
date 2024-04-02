@@ -17,6 +17,8 @@ class TenantApplicationFactory extends Factory
     public function definition(): array
     {
         return [
+            'tenant_id' => fake()->numberBetween(6, 10),
+            'rental_id' => fake()->numberBetween(1, 10),
             'occupants_number' => fake()->numberBetween(2, 8),
             'move_in_date' => fake()->dateTimeBetween('now', '+1 year'),
             'lease_term' => fake()->numberBetween(4, 18),

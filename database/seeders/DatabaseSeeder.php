@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
         $this->call([
-            RentalReviewSeeder::class,
             HouseRentalSeeder::class,
+            RentalReviewSeeder::class,
             TenantApplicationSeeder::class,
             TenantSeeder::class
         ]);

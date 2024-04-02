@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('rental_reviews', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('reviewed_by')->nullable();
+            $table->unsignedBigInteger('reviewed_by');
             $table->foreign('reviewed_by')->references('id')->on('users')->onDelete('cascade');
 
-            $table->unsignedBigInteger('rental_id')->nullable();
+            $table->unsignedBigInteger('rental_id');
             $table->foreign('rental_id')->references('id')->on('house_rentals')->onDelete('cascade');
 
             $table->decimal('ratings', 3, 2);
