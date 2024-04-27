@@ -18,7 +18,7 @@ class HouseRentalFactory extends Factory
     public function definition(): array
     {
         return [
-            'landowner_id' =>fake()->numberBetween(1,5),
+            'user_id' =>fake()->numberBetween(1,5),
             'name' => Str::random(20),
             'description' => Str::random(20),
             'address' => fake()->address(),

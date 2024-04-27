@@ -22,4 +22,12 @@ class TenantApplication extends Model
         'application_status',
         'remarks'
     ];
+
+    public function tenant() {
+        return $this->hasOne(Tenant::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

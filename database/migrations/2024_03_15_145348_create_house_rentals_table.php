@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('house_rentals', function (Blueprint $table) {
             $table->id();
             
-            $table->unsignedBigInteger('landowner_id');
-            $table->foreign('landowner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('name');
             $table->text('description');

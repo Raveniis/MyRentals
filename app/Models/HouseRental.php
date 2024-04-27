@@ -16,8 +16,26 @@ class HouseRental extends Model
         'name',
         'description',
         'address',
-        'price',
+        'monthly_rent',
         'maximum_occupants',
+        'status',
+        'image',
         'status'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function rentalReviews() {
+        return $this->hasMany(RentalReview::class);
+    }
+
+    public function tenantApplications() {
+        return $this->hasMany(TenantApplication::class);
+    }
+
+    public function tenants() {
+        return $this->hasMany(Tenant::class);
+    }
 }

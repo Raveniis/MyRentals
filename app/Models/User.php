@@ -42,4 +42,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function houseRentals() {
+        return $this->hasMany(HouseRental::class);
+    }
+
+    public function rentalReviews() {
+        return $this->hasMany(RentalReview::class);
+    }
+
+    public function tenantApplications() {
+        return $this->hasMany(TenantApplication::class);
+    }
+    
+    public function tenants() {
+        return $this->hasMany(Tenant::class);
+    }
 }
