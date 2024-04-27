@@ -30,4 +30,8 @@ class TenantApplication extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    public function houseRental() {
+        return $this->belongsTo(houseRental::class);
+    }
 }
