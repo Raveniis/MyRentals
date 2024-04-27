@@ -12,7 +12,7 @@ class HouseRental extends Model
     protected $table = "house_rentals";
 
     protected $fillable = [
-        'landowner_id',
+        'user_id',
         'name',
         'description',
         'address',
@@ -20,7 +20,6 @@ class HouseRental extends Model
         'maximum_occupants',
         'status',
         'image',
-        'status'
     ];
 
     public function user() {
@@ -28,7 +27,7 @@ class HouseRental extends Model
     }
 
     public function rentalReviews() {
-        return $this->hasMany(RentalReview::class);
+        return $this->hasMany(RentalReview::class, 'rental_id');
     }
 
     public function tenantApplications() {
