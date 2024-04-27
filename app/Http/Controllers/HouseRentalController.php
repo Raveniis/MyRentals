@@ -71,7 +71,6 @@ class HouseRentalController extends Controller
     public function update(Request $request, string $id)
     {
         $validatedData = $request->validate([
-            'user_id'  => 'required|integer|min:1|max:16',
             'name' => 'required|string|min:1|max:64',
             'description' => 'required|string|min:1|max:2048',
             'address' => 'required|string|min:1|max:128',
