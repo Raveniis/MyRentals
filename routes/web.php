@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\HouseRentalController;
 use App\Http\Controllers\RentalReviewController;
+use App\Http\Controllers\AuthManager;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,14 @@ use App\Http\Controllers\RentalReviewController;
 */
 
 Route::get('/', [TenantController::class, 'getTenants']);
+
+//login
+Route::post('/login', [AuthManager::class, 'loginPost']);
+Route::post('/signup', [AuthManager::class, 'signupPost']);
+Route::get('/email/verify/{id}/{hash}', [AuthManager::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
+
+
+
 
 Route::resource('/rentals', HouseRentalController::class);
 
