@@ -32,6 +32,6 @@ class TenantApplication extends Model
     }
 
     public function houseRental() {
-        return $this->belongsTo(houseRental::class);
+        return $this->belongsTo(houseRental::class, 'rental_id');
     }
 }

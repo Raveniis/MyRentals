@@ -5,6 +5,8 @@ use App\Http\Controllers\TenantController;
 use App\Http\Controllers\HouseRentalController;
 use App\Http\Controllers\RentalReviewController;
 use App\Http\Controllers\AuthManager;
+use App\Http\Controllers\TenantApplicationController;
+use App\Models\TenantApplication;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,15 +26,20 @@ Route::post('/login', [AuthManager::class, 'loginPost']);
 Route::post('/signup', [AuthManager::class, 'signupPost']);
 Route::get('/email/verify/{id}/{hash}', [AuthManager::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
 
-
-
-
+//house rental
 Route::resource('/rentals', HouseRentalController::class);
 
 //review
 Route::post('/review/{id}', [RentalReviewController::class, 'review']);
 Route::post('/review/edit/{id}', [RentalReviewController::class, 'edit']);
 Route::delete('/review/delete/{id}', [RentalReviewController::class, 'delete']);
+
+//tenant application 
+Route::post('/tenant/applications/{id}/apply', [TenantApplicationController::class, 'apply']);
+Route::get('/tenant/applications', [TenantApplicationController::class, 'getTenantApplication']);
+Route::get('/tenant/applications/{id}/accept', [TenantApplicationController::class, 'accept']);
+Route::get('/tenant/applications/{id}/reject', [TenantApplicationController::class, 'reject'] );
+
 
 
 

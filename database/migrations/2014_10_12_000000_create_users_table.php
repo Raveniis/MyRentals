@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['landowner', 'renter']);
+            $table->enum('role', ['landowner', 'tenant']);
             $table->rememberToken();
             $table->timestamps();
         });

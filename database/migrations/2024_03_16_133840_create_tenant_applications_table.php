@@ -25,7 +25,7 @@ return new class extends Migration
             $table->integer('lease_term');
             $table->string('employment_status');
             $table->decimal('monthly_income', 11, 2);
-            $table->string('application_status');
+            $table->enum('application_status', ['pending', 'accepted', 'rejected']);
             $table->string('remarks')->nullable();
             $table->timestamps();
             $table->softDeletes();
