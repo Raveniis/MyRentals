@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\HouseRental;
+use GuzzleHttp\Psr7\Query;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,28 +12,35 @@ class HouseRentalController extends Controller
 {
     public function index()
     {
-        return HouseRental::with('user')->with('rentalReviews')->paginate(30);
+        $user_id = auth()->user()->id;
+
+        $houseRental = HouseRental::whereHas('user', function($query) use ($user_id) {
+            $query->where('id', $user_id);
+        })->with('rentalReviews')->paginate(30);
+
+        return view('landowner.main.listings')->with('houseRentals',  $houseRental);
     }
 
     public function create()
     {
-        //return the form
+        return view('landowner.main.addRentals');
     }
 
     public function store(Request $request)
     {
         //store
-        $validatedData = $request->validate([
-            'user_id'  => 'required|integer|min:1|max:16',
+        $request->validate([
             'name' => 'required|string|min:1|max:64',
             'description' => 'required|string|min:1|max:2048',
             'address' => 'required|string|min:1|max:128',
-            'monthly_rent' => 'required|numeric',
-            'maximum_occupants' => 'required|integer',
+            'monthly_rent' => 'required|numeric|gt:0',
+            'maximum_occupants' => 'required|integer|gt:0|max:32',
             'image' => 'required|mimes:jpg,png,svg,jpeg',
         ]);
 
-        $rental = new HouseRental($validatedData);
+        $rental = new HouseRental($request->all());
+
+        $rental->user_id = auth()->user()->id;
 
         if($request->hasFile('image'))
         {
@@ -46,7 +54,7 @@ class HouseRentalController extends Controller
 
         $rental->save();
         
-        return response()->json(['success' => 'item has been created']);
+        return redirect(route('addRentals'))->with("success", "Rentals has been added");
     }
 
     /**
@@ -54,7 +62,9 @@ class HouseRentalController extends Controller
      */
     public function show(string $id)
     {
-        return HouseRental::with('user')->with('rentalReviews')->findorfail($id);
+        $houseRental =  HouseRental::with('user')->with('rentalReviews')->findorfail($id);
+
+        return view('landowner.main.editRentals')->with('houseRental', $houseRental);
     }
 
     /**
@@ -74,8 +84,8 @@ class HouseRentalController extends Controller
             'name' => 'required|string|min:1|max:64',
             'description' => 'required|string|min:1|max:2048',
             'address' => 'required|string|min:1|max:128',
-            'monthly_rent' => 'required|numeric',
-            'maximum_occupants' => 'required|integer',
+            'monthly_rent' => 'required|numeric|gt:0',
+            'maximum_occupants' => 'required|integer|gt:0',
             'image' => 'required|mimes:jpg,png,svg,jpeg',
         ]);
 
@@ -95,7 +105,7 @@ class HouseRentalController extends Controller
 
         $rental->save();
         
-        return response()->json(['success' => 'item has been updated']);
+        return redirect(route('editRentals', ['id' => $id]))->with("success", "Rentals has been updated");
     }
 
     /**
@@ -105,6 +115,6 @@ class HouseRentalController extends Controller
     {
         HouseRental::findorfail($id)->delete();
 
-        return "Item has been deleted";
+        return redirect(route('listings'))->with('success', 'item has been deleted');
     }
 }

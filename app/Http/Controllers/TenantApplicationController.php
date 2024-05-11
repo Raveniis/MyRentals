@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\Validator;
 class TenantApplicationController extends Controller
 {
     public function getTenantApplication() {
-        // $user_id = auth()->user()->id;
+        $user_id = auth()->user()->id;
  
-        $tenantApplication =  TenantApplication::whereHas('houseRental', function($query){
-            $query->where('user_id', 3);  //palit user id nalang
-        })->get();
+        $tenantApplications =  TenantApplication::whereHas('houseRental', function($query) use ($user_id){
+            $query->where('user_id', $user_id);  //palit user id nalang
+        })->with('houseRental', 'user')->paginate(10);
 
-        return $tenantApplication;
+        // return $tenantApplications;
+        return view('landowner.main.application')->with('tenantApplications', $tenantApplications);
     }
 
     public function accept($id) {
@@ -34,8 +35,7 @@ class TenantApplicationController extends Controller
             'application_status' => 'accepted'
         ]);
 
-        return response()->json(['success' => 'Tenant application has been accepted.'], 200);
-
+        return redirect(route('applications'))->with('success', 'Tenant application has been accepted.');
     }
 
     public function reject($id) {
@@ -50,13 +50,14 @@ class TenantApplicationController extends Controller
             'application_status' => 'rejected'
         ]);
 
-        return response()->json(['success' => 'Tenant application has been rejected.'], 200);
+
+        return redirect(route('applications'))->with('success', 'Tenant application has been rejected.');
     }
 
     public function apply(Request $request, $id) {
         $validatedData = Validator::make($request->all(), [
             'occupants_number' => 'required|numeric|max:8',
-            'move_in_date' => 'required|date',
+            'move_in_date' => 'required|date|after:today',
             'lease_term' => 'required|numeric|max:8',
             'monthly_income' => 'required|numeric',
             'employment_status' => 'required|in:employed,unemployed',
