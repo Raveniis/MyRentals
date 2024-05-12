@@ -1,7 +1,7 @@
 <nav>
     <div class="logo-name">
         <div class="logo-image">
-            <img src="images/pcexpress.png" alt="">
+            <img src="{{ asset('images/anya 4.jpg') }}" alt="">
         </div>
 
         <span class="logo_name">MyRentals</span>
