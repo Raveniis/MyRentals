@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('tenants', function (Blueprint $table) {
             $table->id(); 
-            $table->unsignedBigInteger('user_id')->nullable(); 
-            $table->unsignedBigInteger('application_id')->nullable();
-            $table->string('emergency_num');
-            $table->text('remarks');
+            $table->unsignedBigInteger('user_id'); 
+            $table->unsignedBigInteger('application_id');
+            $table->text('remarks')->nullable();
+            $table->boolean('status')->default(1);
             $table->timestamps(); 
             $table->softDeletes();  
 

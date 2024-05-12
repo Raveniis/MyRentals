@@ -47,6 +47,7 @@ Route::post('landowner/main/profile/update', [ProfileController::class, 'update'
 
 
 
+
 Route::post('/login', [AuthManager::class, 'loginPost']);
 Route::post('/signup', [AuthManager::class, 'signupPost']);
 Route::get('/email/verify/{id}/{hash}', [AuthManager::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
@@ -68,8 +69,10 @@ Route::post('/tenant/applications/{id}/apply', [TenantApplicationController::cla
 Route::get('/landowner/applications/{id}/accept', [TenantApplicationController::class, 'accept'])->name('application.accept');
 Route::get('/landowner/applications/{id}/reject', [TenantApplicationController::class, 'reject'])->name('application.reject');
 Route::get('/landowner/applications/{id}/delete', [TenantApplicationController::class, 'delete'])->name('application.destroy');
+Route::get('/landowner/applications/{id}/view', [TenantApplicationController::class, 'show'])->name('application.review');
 
 //tenant mangament 
+Route::get('/landowner/tenants', [TenantController::class, 'getTenants'])->name('tenants');
 
 
 

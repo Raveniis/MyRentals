@@ -18,7 +18,7 @@ class TenantApplicationController extends Controller
  
         $tenantApplications =  TenantApplication::whereHas('houseRental', function($query) use ($user_id){
             $query->where('user_id', $user_id);  //palit user id nalang
-        })->with('houseRental', 'user')->paginate(10);
+        })->with('houseRental', 'user')->orderby('created_at', 'desc')->paginate(10);
 
         // return $tenantApplications;
         return view('landowner.main.application')->with('tenantApplications', $tenantApplications);
@@ -35,6 +35,24 @@ class TenantApplicationController extends Controller
         $tenantApplication->update([
             'application_status' => 'accepted'
         ]);
+
+        $user_id = auth()->user()->id;
+        //reject the rest of the application related to the house rentals
+        TenantApplication::whereHas('houseRental', function($query) use ($user_id){
+            $query->where('user_id', $user_id);  //palit user id nalang
+        })->where('rental_id', $tenantApplication->rental_id)
+          ->where('application_status', 'pending')
+          ->update([
+            'application_status' => 'rejected'
+          ]);
+
+        HouseRental::where('id', $tenantApplication->rental_id)->update(['status' => 0]);  //set to inactive
+          
+        //create new tenant
+        $tenant = new Tenant();
+        $tenant->user_id = $tenantApplication->tenant_id;
+        $tenant->application_id = $id;
+        $tenant->save();
 
         return redirect(route('applications'))->with('success', 'Tenant application has been accepted.');
     }
@@ -60,6 +78,13 @@ class TenantApplicationController extends Controller
 
         return redirect(route('applications'))->with('success', 'Tenant application has been archived.');
     }
+
+    public function show($id) {
+        $tenant = TenantApplication::with('user', 'houseRental')->findorfail($id);
+
+        return view('landowner.main.applicationReview')->with('tenant', $tenant);
+    }
+
     public function apply(Request $request, $id) {
         $validatedData = Validator::make($request->all(), [
             'occupants_number' => 'required|numeric|max:8',
@@ -67,6 +92,7 @@ class TenantApplicationController extends Controller
             'lease_term' => 'required|numeric|max:8',
             'monthly_income' => 'required|numeric',
             'employment_status' => 'required|in:employed,unemployed',
+            'emergency_num' => 'required|size:11|regex:/(09)[0-9]{9}/',
         ]);
 
         if($validatedData->fails()){

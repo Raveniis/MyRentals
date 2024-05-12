@@ -20,6 +20,7 @@ class TenantApplication extends Model
         'monthly_income',
         'employment_status',
         'application_status',
+        'emergency_num',
         'remarks'
     ];
 

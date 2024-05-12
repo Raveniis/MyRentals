@@ -19,7 +19,6 @@ class TenantFactory extends Factory
         return [
             'user_id' => fake()->numberBetween(6, 10),
             'application_id' => fake()->numberBetween(1, 10),
-            'emergency_num' => fake()->phoneNumber(),
             'remarks' => fake()->sentence(3, true),
         ];
     }

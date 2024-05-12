@@ -32,12 +32,12 @@
                         <span class="text">Total Listings</span>
                         <span class="number">{{ $houseRentalCount }}</span>
                     </a>
-                    <div class="box box2">
+                    <a class="box box2" href="{{ route('tenants') }}">
                         <i class="uil uil-transaction"></i>
                         <span class="text">Total Tenants</span>
-                        <span class="number">0</span>
-                    </div>
-                    <a href="route('applications')"class="box box3">
+                        <span class="number">{{ $tenants }}</span>
+                    </a>
+                    <a href="{{ route('applications') }}"class="box box3">
                         <i class="uil uil-message"></i>
                         <span class="text">Total Rental Applicants</span>
                         <span class="number">{{ $applicantsCount }}</span>

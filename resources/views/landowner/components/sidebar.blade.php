@@ -25,9 +25,9 @@
                 <i class="uil uil-label"></i>
                 <span class="link-name">Application</span>
             </a></li>
-            <li><a href="transaction.php">
+            <li><a href="{{ route('tenants') }}">
                 <i class="uil uil-transaction"></i>
-                <span class="link-name">Transaction History</span>
+                <span class="link-name">Tenants</span>
             </a></li>
             {{-- <li><a href="messaging.php">
                 <i class="uil uil-message"></i>

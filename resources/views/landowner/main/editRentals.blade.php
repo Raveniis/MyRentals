@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/landowner/styles.css')}}">
 
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Edit Rentals</title> 
 </head>
 
@@ -33,8 +34,8 @@
             <div class="left">
                 <div class="main_image">
                 <label for="imageInput">Add Image:</label>
-                <input type="file" name="image" id="imageInput" accept="image/*" onchange="previewImage()" required>
-                <img id="preview" class="slide" alt="Preview Image" width="470px" height="400px" style="object-fit: cover" src="{{ asset('storage/houseRentals/' . $houseRental->image)}}">
+                <input type="file" name="image" id="imageInput" accept="image/*" onchange="previewImage()">
+                <img id="preview" class="slide" alt="Preview Image" width="470px" height="400px" style="object-fit: cover" src="{{ asset($houseRental->image)}}">
                 </div>
             </div>
             <div class="right">
@@ -89,11 +90,17 @@
 
                     @if(session()->has("success"))
                         <div class="warning-messages" style="color:green">
-                            <p>{{session("success")}}</p>
+                            <script>
+                                Swal.fire(
+                                    "Success!",
+                                    "Rentals has been updated.",
+                                    "success"
+                                );
+                            </script>
                         </div>
                     @endif
                 </h4>
-                <button tyoe="submit" name="add">Add Rentals</button>
+                <button tyoe="submit" name="add">Edit Rentals</button>
             </div>
             </div>
         </form>

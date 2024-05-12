@@ -60,15 +60,15 @@
                             </td>
                             <td class="actions">
                                 @if ($tenantApplication->application_status === 'pending')
-                                    <a class="icons" title="Accept" style="color:green" onclick="rejectConfirmation('{{ htmlspecialchars(route('application.accept', ['id' => $tenantApplication->id])) }}')">
+                                    <a class="icons" title="Accept" style="color:green; font-size: 30px;"" onclick="acceptConfirmation('{{ htmlspecialchars(route('application.accept', ['id' => $tenantApplication->id])) }}')">
                                         <i class='bx bxs-checkbox-checked'></i>
                                     </a>
-                                    <a class="icons" title="Reject" style="color:red" onclick="rejectConfirmation('{{ htmlspecialchars(route('application.reject', ['id' => $tenantApplication->id])) }}')">
+                                    <a class="icons" title="Reject" style="color:red; font-size: 30px;"" onclick="rejectConfirmation('{{ htmlspecialchars(route('application.reject', ['id' => $tenantApplication->id])) }}')">
                                         <i class='bx bxs-checkbox-checked'></i>
                                     </a>
-                                    <div class="icons" title="View" style="color:orange" href="{{ route('editRentals', ['id' => $tenantApplication->id]) }}">
+                                    <a class="icons" title="View" style="color:orange" href="{{ route('application.review', ['id' => $tenantApplication->id]) }}">
                                         <i class='bx bx-notepad'></i>
-                                    </div>
+                                    </a>
                                 @else
                                     <div class="icons" title="View" style="color:grey" onclick="archiveConfirmation('{{ htmlspecialchars(route('application.destroy', ['id' => $tenantApplication->id])) }}')">
                                         <i class='bx bxs-archive-in' ></i>
@@ -105,7 +105,7 @@
     function acceptConfirmation(link) {
     Swal.fire({
         title: "Are you sure?",
-        text: "Once accepted, you will not be able to undo you actions.",
+        text: "Once accepted, the rest of the application related to the house rental will be set to rejected.",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",

@@ -23,8 +23,9 @@ return new class extends Migration
             $table->integer('occupants_number');
             $table->date('move_in_date');
             $table->integer('lease_term');
-            $table->string('employment_status');
+            $table->enum('employment_status', ['employed', 'unemployed']);
             $table->decimal('monthly_income', 11, 2);
+            $table->string('emergency_num');
             $table->enum('application_status', ['pending', 'accepted', 'rejected']);
             $table->string('remarks')->nullable();
             $table->timestamps();

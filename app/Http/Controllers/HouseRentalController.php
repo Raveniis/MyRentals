@@ -49,7 +49,7 @@ class HouseRentalController extends Controller
 
             Storage::disk('public')->put('houseRentals/' . $filename, file_get_contents($picture));
 
-            $rental->image = $filename;
+            $rental->image = 'storage/houseRentals/' . $filename;
         }
 
         $rental->save();
@@ -86,7 +86,7 @@ class HouseRentalController extends Controller
             'address' => 'required|string|min:1|max:128',
             'monthly_rent' => 'required|numeric|gt:0',
             'maximum_occupants' => 'required|integer|gt:0',
-            'image' => 'required|mimes:jpg,png,svg,jpeg',
+            'image' => 'nullable|mimes:jpg,png,svg,jpeg',
         ]);
 
         $rental = HouseRental::findorfail($id);
@@ -100,7 +100,7 @@ class HouseRentalController extends Controller
 
             Storage::disk('public')->put('houseRentals/' . $filename, file_get_contents($picture));
 
-            $rental->image = $filename;
+            $rental->image = 'storage/houseRentals/' . $filename;
         }
 
         $rental->save();
