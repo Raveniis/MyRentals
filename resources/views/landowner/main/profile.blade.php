@@ -7,6 +7,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <link rel="stylesheet" href="{{ asset('css/landowner/main.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <title>profile</title>
@@ -25,12 +26,13 @@
             </div>
             <div class="card-body">
                 <!-- Start: Form -->
-                <form method="POST" id="userProfileForm"  enctype="multipart/form-data" >
+                <form method="POST" action="{{ route('profile.post') }}"  enctype="multipart/form-data" >
+                    @csrf
                     <div class="row" style="margin-bottom: 25px;text-align: left;">
                         <div class="col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2" style="display: inline;text-align: center;margin-bottom: 25px;">
-                                <img id="previewImage" class="rounded-circle mb-3 mt-4 img-fluid" src="" style="display: inline;max-height: 110px;width: 111.5px; height: 111.5px;">
+                                <img id="previewImage" class="rounded-circle mb-3 mt-4 img-fluid" src="{{ asset(auth()->user()->profile_pic ? auth()->user()->profile_pic : 'images/default.png') }}" style="display: inline;max-height: 110px;width: 111.5px; height: 111.5px;">
                                 <br>
-                                <input type="file" id="pictureUpload" name="profilePicture"  accept="image/x-png,image/gif,image/jpeg" class="btn btn-primary btn-sm" value="Change Photo" style="width: 113px; color: transparent;">
+                                <input type="file" id="pictureUpload" name="image"  accept="image/x-png,image/gif,image/jpeg" class="btn btn-primary btn-sm" value="Change Photo" style="width: 113px; color: transparent;">
                             </div>                        
                             <div class="col-sm-8 col-md-8 col-lg-9 col-xl-10 col-xxl-10 align-self-center">
                             <div class="row">
@@ -41,7 +43,7 @@
                                 </div>
                                 <div class="col-md-12 text-start">
                                     <div class="mb-3"><label class="form-label" for="username"><strong>Contact number</strong></label>
-                                    <input class="form-control" type="text" placeholder="" pattern="[0-9]{11}" name="telephone" value="{{ auth()->user()->contact_num}}" required></div>
+                                    <input class="form-control" type="text" placeholder="" pattern="[0-9]{11}" name="contact_num" value="{{ auth()->user()->contact_num}}" required></div>
                                 </div>
                             </div>
                         </div>
@@ -71,15 +73,40 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label class="form-label" for="Age"><strong>Age</strong></label>
-                                <input class="form-control" type="text" id="ageId" name="age" required="" value="" readonly>
+                                <label class="form-label" for="Age"><strong>Age</strong></label> 
+                                <div style="display: none">
+                                    {{ $ageYear = date('Y') - date('Y', strtotime(auth()->user()->birthdate )) }}
+                                    {{ $ageM = ( date('m') < date('m', strtotime(auth()->user()->birthdate ))) ?  -1 :  0;  }}
+                                </div>
+                                <input class="form-control" type="text" value="{{ $ageYear + $ageM}}" readonly>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label" for="address"><strong>Address</strong></label>
-                                <input class="form-control" type="text" placeholder="Home Number, Street, City, Municipality" name="address" value="">
+                                <input class="form-control" type="text" placeholder="Home Number, Street, City, Municipality" name="address" value="{{ auth()->user()->address}}">
+                            </div>
+                            <div class="mb-3">
+                                @if($errors->any())
+                                    <div class="warning-messages" style="color:red">
+                                    @foreach ($errors->all() as $error)
+                                        <p>{{$error}}</p>
+                                    @endforeach
+                                    </div>
+                                @endif
+
+                                @if(session()->has("success"))
+                                    <div class="warning-messages" style="color:green">
+                                        <script>
+                                            Swal.fire(
+                                                "Success!",
+                                                "Profile has been updated",
+                                                "success"
+                                            );
+                                        </script>
+                                    </div>
+                                @endif
                             </div>
 
                         <div class="col-md-12" style="text-align: right;margin-top: 5px;">

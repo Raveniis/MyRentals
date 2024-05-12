@@ -80,7 +80,7 @@ body.dark .activity-data::-webkit-scrollbar-thumb:hover{
     background: #3A3B3C;
 }
 
-nav{
+.sidebar-nav    {
     position: fixed;
     top: 0;
     left: 0;
@@ -91,37 +91,37 @@ nav{
     border-right: 1px solid var(--border-color);
     transition: var(--tran-05);
 }
-nav.close{
+.sidebar-nav.close{
     width: 73px;
 }
-nav .logo-name{
+.sidebar-nav .logo-name{
     display: flex;
     align-items: center;
 }
-nav .logo-image{
+.sidebar-nav .logo-image{
     display: flex;
     justify-content: center;
     min-width: 45px;
 }
-nav .logo-image img{
+.sidebar-nav .logo-image img{
     height: 40px;
     width: 40px;
     object-fit: cover;
     border-radius: 50%;
 }
 
-nav .logo-name .logo_name{
+.sidebar-nav .logo-name .logo_name{
     font-size: 22px;
     font-weight: 600;
     color: var(--text-color);
     margin-left: 14px;
     transition: var(--tran-05);
 }
-nav.close .logo_name{
+.sidebar-nav.close .logo_name{
     opacity: 0;
     pointer-events: none;
 }
-nav .menu-items{
+.sidebar-nav .menu-items{
     margin-top: 40px;
     height: calc(100% - 90px);
     display: flex;
@@ -165,7 +165,7 @@ body.dark li a:hover:before{
     color: var(--black-light-color);    
     transition: var(--tran-05);
 }
-nav.close li a .link-name{
+.sidebar-nav.close li a .link-name{
     opacity: 0;
     pointer-events: none;
 }
@@ -230,7 +230,7 @@ body.dark .switch:before{
     transition: var(--tran-05);
     padding-bottom: 20px;
 }
-nav.close ~ .dashboard{
+.sidebar-nav.close ~ .dashboard{
     left: 73px;
     width: calc(100% - 73px);
 }
@@ -247,7 +247,7 @@ nav.close ~ .dashboard{
     transition: var(--tran-05);
     z-index: 10;
 }
-nav.close ~ .dashboard .top{
+.sidebar-nav.close ~ .dashboard .top{
     left: 73px;
     width: calc(100% - 73px);
 }
@@ -538,42 +538,78 @@ body.dark .add-product-btn.view-btn:hover {
     font-size: 26px;
 }
 
+nav {
+    display: flex;
+    flex-direction: row;
+}
+
+nav div {
+    display: flex;
+    padding: 0px 5px;
+}
+
+.pagination-links {
+    display: flex;
+    padding: 20px;
+    justify-content: flex-end;
+}
+
+.pagination {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0px 5px;
+}
+
+.page-item {
+    padding: 0px 10px;
+}
+
+.page-item.disabled {
+    opacity: 0.5;
+}
+
+.pagination .page-link.prev, 
+    .pagination .page-link.next {
+        display: none;
+    }
+
 @media (max-width: 1000px) {
-    nav{
+    .sidebar-nav{
         width: 73px;
     }
-    nav.close{
+    .sidebar-nav.close{
         width: 250px;
     }
-    nav .logo_name{
+    .sidebar-nav .logo_name{
         opacity: 0;
         pointer-events: none;
     }
-    nav.close .logo_name{
+    .sidebar-nav.close .logo_name{
         opacity: 1;
         pointer-events: auto;
     }
-    nav li a .link-name{
+    .sidebar-nav li a .link-name{
         opacity: 0;
         pointer-events: none;
     }
-    nav.close li a .link-name{
+    .sidebar-nav.close li a .link-name{
         opacity: 1;
         pointer-events: auto;
     }
-    nav ~ .dashboard{
+    .sidebar-nav ~ .dashboard{
         left: 73px;
         width: calc(100% - 73px);
     }
-    nav.close ~ .dashboard{
+    .sidebar-nav.close ~ .dashboard{
         left: 250px;
         width: calc(100% - 250px);
     }
-    nav ~ .dashboard .top{
+    .sidebar-nav ~ .dashboard .top{
         left: 73px;
         width: calc(100% - 73px);
     }
-    nav.close ~ .dashboard .top{
+    .sidebar-nav.close ~ .dashboard .top{
         left: 250px;
         width: calc(100% - 250px);
     }
@@ -594,41 +630,43 @@ body.dark .add-product-btn.view-btn:hover {
     }
 }
 @media (max-width: 400px) {
-    nav{
+    .sidebar-nav{
         width: 0px;
     }
-    nav.close{
+    .sidebar-nav.close{
         width: 73px;
     }
-    nav .logo_name{
+    .sidebar-nav .logo_name{
         opacity: 0;
         pointer-events: none;
     }
-    nav.close .logo_name{
+    .sidebar-nav.close .logo_name{
         opacity: 0;
         pointer-events: none;
     }
-    nav li a .link-name{
+    .sidebar-nav li a .link-name{
         opacity: 0;
         pointer-events: none;
     }
-    nav.close li a .link-name{
+    .sidebar-nav.close li a .link-name{
         opacity: 0;
         pointer-events: none;
     }
-    nav ~ .dashboard{
+    .sidebar-nav ~ .dashboard{
         left: 0;
         width: 100%;
     }
-    nav.close ~ .dashboard{
+    .sidebar-nav.close ~ .dashboard{
         left: 73px;
         width: calc(100% - 73px);
     }
-    nav ~ .dashboard .top{
+    .sidebar-nav ~ .dashboard .top{
         left: 0;
         width: 100%;
     }
-    nav.close ~ .dashboard .top{
+    .sidebar-nav.close ~ .dashboard .top{
+ }
+    .sidebar-nav.close ~ .dashboard .top{
         left: 0;
         width: 100%;
     }

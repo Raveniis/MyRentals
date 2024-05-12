@@ -76,21 +76,8 @@
                 </tbody>
             </table>
         </div>
-        <div>
-            <!-- a Tag for previous page -->
-            {{-- <a href="{{$houseRentals->previousPageUrl()}}">
-                prev
-                <!-- You can insert logo or text here -->
-            </a>
-            @for($i=1;$i<=$houseRentals->lastPage();$i++)
-                <!-- a Tag for another page -->
-                <a href="{{$houseRentals->url($i)}}">{{$i}}</a>
-            @endfor
-            <!-- a Tag for next page -->
-            <a href="{{$houseRentals->nextPageUrl()}}">
-                next
-            </a> --}}
-            {{-- {{ $houseRentals->links('pagination::bootstrap-5') }} --}}
+        <div class="pagination-links">
+            {{ $houseRentals->links('pagination::bootstrap-5') }}
         </div>
     </div>
     </section>

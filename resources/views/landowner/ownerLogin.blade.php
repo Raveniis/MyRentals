@@ -9,6 +9,7 @@
    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <title>Login</title>
 </head>
 
@@ -61,7 +62,13 @@
 
                     @if(session()->has("success"))
                         <div class="warning-messages" style="color:green">
-                            <p>{{session("success")}}</p>
+                            <script>
+                                Swal.fire(
+                                    "Success!",
+                                    "Accouunt has been created.",
+                                    "success"
+                                );
+                            </script>
                         </div>
                     @endif
 

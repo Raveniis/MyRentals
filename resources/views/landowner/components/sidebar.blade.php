@@ -1,4 +1,4 @@
-<nav>
+<div class="sidebar-nav" id="sidebar-nav">
     <div class="logo-name">
         <div class="logo-image">
             <img src="{{ asset('images/anya 4.jpg') }}" alt="">
@@ -53,4 +53,4 @@
         </li>
         </ul>
     </div>
-</nav>
+</div>

@@ -16,7 +16,7 @@ class HouseRentalController extends Controller
 
         $houseRental = HouseRental::whereHas('user', function($query) use ($user_id) {
             $query->where('id', $user_id);
-        })->with('rentalReviews')->paginate(10  );
+        })->with('rentalReviews')->paginate(10);
 
         return view('landowner.main.listings')->with('houseRentals',  $houseRental);
     }

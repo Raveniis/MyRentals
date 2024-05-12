@@ -80,6 +80,9 @@
                 </tbody>
             </table>
         </div>
+        <div class="pagination-links">
+            {{ $tenantApplications->links('pagination::bootstrap-5') }}
+        </div>
     </div>
     </section>
 

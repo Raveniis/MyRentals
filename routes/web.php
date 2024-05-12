@@ -41,6 +41,7 @@ Route::get('landowner/main/deleteRentals/{id?}', [HouseRentalController::class, 
 //profile
 
 Route::get('landowner/main/profile', [ProfileController::class, 'profile'])->name('profile');
+Route::post('landowner/main/profile/update', [ProfileController::class, 'update'])->name('profile.post');
 
 
 
