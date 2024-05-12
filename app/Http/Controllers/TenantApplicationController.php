@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TenantApplication;
 use App\Models\HouseRental;
 use App\Models\Tenant;
+use Database\Seeders\TenantApplicationSeeder;
 use GuzzleHttp\Psr7\Query;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -54,6 +55,11 @@ class TenantApplicationController extends Controller
         return redirect(route('applications'))->with('success', 'Tenant application has been rejected.');
     }
 
+    public function delete($id){
+        $tenantApplication = TenantApplication::findorfail($id)->delete(); //for improvement purposes kaya naka store sa variable
+
+        return redirect(route('applications'))->with('success', 'Tenant application has been archived.');
+    }
     public function apply(Request $request, $id) {
         $validatedData = Validator::make($request->all(), [
             'occupants_number' => 'required|numeric|max:8',

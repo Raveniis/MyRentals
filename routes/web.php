@@ -6,6 +6,7 @@ use App\Http\Controllers\HouseRentalController;
 use App\Http\Controllers\RentalReviewController;
 use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantApplicationController;
 use App\Models\TenantApplication;
 
@@ -37,6 +38,11 @@ Route::get('landowner/main/editRentals/{id}', [HouseRentalController::class, 'sh
 Route::post('landowner/main/editRentals/{id}', [HouseRentalController::class, 'update'])->name('editRentals.post');
 Route::get('landowner/main/deleteRentals/{id?}', [HouseRentalController::class, 'destroy'])->name('deleteRentals');
 
+//profile
+
+Route::get('landowner/main/profile', [ProfileController::class, 'profile'])->name('profile');
+
+
 
 
 
@@ -54,11 +60,13 @@ Route::post('/review/{id}', [RentalReviewController::class, 'review']);
 Route::post('/review/edit/{id}', [RentalReviewController::class, 'edit']);
 Route::delete('/review/delete/{id}', [RentalReviewController::class, 'delete']);
 
+
 //tenant application 
 Route::get('/landowner/applications', [TenantApplicationController::class, 'getTenantApplication'])->name('applications');
 Route::post('/tenant/applications/{id}/apply', [TenantApplicationController::class, 'apply']);
 Route::get('/landowner/applications/{id}/accept', [TenantApplicationController::class, 'accept'])->name('application.accept');
 Route::get('/landowner/applications/{id}/reject', [TenantApplicationController::class, 'reject'])->name('application.reject');
+Route::get('/landowner/applications/{id}/delete', [TenantApplicationController::class, 'delete'])->name('application.destroy');
 
 //tenant mangament 
 

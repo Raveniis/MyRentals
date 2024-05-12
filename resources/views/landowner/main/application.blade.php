@@ -70,7 +70,7 @@
                                         <i class='bx bx-notepad'></i>
                                     </div>
                                 @else
-                                    <div class="icons" title="View" style="color:grey" href="{{ route('editRentals', ['id' => $tenantApplication->id]) }}">
+                                    <div class="icons" title="View" style="color:grey" onclick="archiveConfirmation('{{ htmlspecialchars(route('application.destroy', ['id' => $tenantApplication->id])) }}')">
                                         <i class='bx bxs-archive-in' ></i>
                                     </div>
                                 @endif
@@ -107,7 +107,7 @@
         showCancelButton: true,
         confirmButtonColor: "#d33",
         cancelButtonColor: "#3085d6",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "Yes, accept it!",
         cancelButtonText: "Cancel"
       }).then((result) => {
         if (result.isConfirmed) {
@@ -131,7 +131,24 @@
             window.location.href = link;
         }
       });
-}
+    }
+
+    function archiveConfirmation(link) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This item will be archived.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, archive it!",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = link;
+            }
+        });
+    }
 </script>
 </html>
 

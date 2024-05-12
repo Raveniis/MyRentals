@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>Listings</title> 
+    <title>Listings</title>     
 </head>
 
 <body>
@@ -76,8 +76,12 @@
                 </tbody>
             </table>
         </div>
+        {{-- <div>
+            {{ $houseRentals->links('pagination::bootstrap-5') }}
+        </div> --}}
     </div>
     </section>
+    
 
     @if(session()->has("success"))
         <div class="warning-messages" style="color:green">
