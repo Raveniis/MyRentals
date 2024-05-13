@@ -88,15 +88,13 @@
                     @endif
 
                     @if(session()->has("success"))
-                        <div class="warning-messages" style="color:green">
-                            <script>
-                                Swal.fire(
-                                    "Success!",
-                                    "Rentals has been added.",
-                                    "success"
-                                );
-                            </script>
-                        </div>
+                        <script>
+                            Swal.fire(
+                                "Success!",
+                                "Rentals has been added.",
+                                "success"
+                            );
+                        </script>
                     @endif
                 </h4>
                 <button tyoe="submit" name="add">Add Rentals</button>

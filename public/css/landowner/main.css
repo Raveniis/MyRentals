@@ -571,9 +571,13 @@ nav div {
 }
 
 .pagination .page-link.prev, 
-    .pagination .page-link.next {
-        display: none;
-    }
+.pagination .page-link.next {
+    display: none;
+}
+
+input:read-only {
+    color: rgb(179, 179, 179);
+}
 
 @media (max-width: 1000px) {
     .sidebar-nav{

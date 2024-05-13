@@ -54,18 +54,6 @@
                         </div>
                     @endif
 
-                    @if(session()->has("success"))
-                        <div class="warning-messages" style="color:green">
-                            <script>
-                                Swal.fire(
-                                    "Success!",
-                                    "Accouunt has been created.",
-                                    "success"
-                                );
-                            </script>
-                        </div>
-                    @endif
-
                     <button type="submit" class="btn" name="login">Log in</button>                    
 
                     <div class="login-register">
@@ -86,6 +74,26 @@
                 title: "Unauthorized User",
                 text: "Invalid email or password",
             })
+        </script>
+    @endif
+
+    @if(session()->has("success"))
+        <script>
+            Swal.fire(
+                "Success!",
+                "Accouunt has been created.",
+                "success"
+            );
+        </script>
+    @endif
+
+    @if(session()->has("unauthorized"))
+        <script>
+            Swal.fire(
+                "Unauthorized!",
+                "{{ session('unauthorized')}}",
+                "error"
+            );
         </script>
     @endif
 

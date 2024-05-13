@@ -66,12 +66,18 @@
                                 <p style=' font-size: 13px'> {{ $tenant->status ? 'Active Tenant' : 'Inactive Tenant' }}</p>
                             </td>
                             <td class="actions">
-                                <div class="icons" title="Edit" style="color:orange">
-                                    <i class='bx bx-edit' ></i>
-                                </div>
-                                <div class="icons" title="Remove Tenant" onclick="deleteConfirmation('{{  htmlspecialchars(route('tenants.remove',  ['id' => $tenant->id ])) }}')" style="color:red" >
-                                    <i class='bx bxs-trash'></i>
-                                </div>
+                                @if ($tenant->status === 1)
+                                    <a class="icons" title="Edit" style="color:orange" href="{{route('tenants.show', ['id' => $tenant->id])}}">
+                                        <i class='bx bx-edit' ></i>
+                                    </a>
+                                    <div class="icons" title="Remove Tenant" onclick="deleteConfirmation('{{  htmlspecialchars(route('tenants.remove',  ['id' => $tenant->id ])) }}')" style="color:red" >
+                                        <i class='bx bxs-trash'></i>
+                                    </div>
+                                @else
+                                    <div class="icons" title="Archive" style="color:grey" onclick="archiveConfirmation('{{ htmlspecialchars(route('tenants.delete', ['id' => $tenant->id])) }}')">
+                                        <i class='bx bxs-archive-in' ></i>
+                                    </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -95,26 +101,53 @@
         </script>
     @endif
 
+    @if(session()->has("archived"))
+    <script>
+        Swal.fire(
+            "Archived!",
+            "{{ session('archived') }}",
+            "success"
+        );
+    </script>
+@endif
+
     <script src="{{asset('js/landowner/main.js')}}"></script>
 </body>
 
 <script>
     function deleteConfirmation(url) {
-    Swal.fire({
-        title: "Are you sure?",
-        text: "Once removed, you will not be able to recover this item!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Remove",
-        cancelButtonText: "Cancel"
-      }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = url;
-        }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Once removed, you will not be able to recover this item!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Remove",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
       });
-}
+    }
+    
+    function archiveConfirmation(link) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This item will be archived.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, archive it!",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = link;
+            }
+        });
+    }
 </script>
 </html>
 

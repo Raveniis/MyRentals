@@ -20,7 +20,6 @@ class AdminMiddleware
             return $next($request);
         }
 
-        // If the user is not an admin, you can redirect them to a different route
-        return redirect()->route('ownerLogin'); //->with('error', 'Unauthorized access');
+        return redirect()->route('ownerLogin')->with('unauthorized', 'the credentials you are using is not a landowner'); 
     }
 }
