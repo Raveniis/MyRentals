@@ -84,15 +84,13 @@
     
 
     @if(session()->has("success"))
-        <div class="warning-messages" style="color:green">
-            <script>
-                Swal.fire(
-                    "Deleted!",
-                    "Rentals has been deleted.",
-                    "success"
-                );
-            </script>
-        </div>
+        <script>
+            Swal.fire(
+                "Deleted!",
+                "Rentals has been deleted.",
+                "success"
+            );
+        </script>
     @endif
 
     <script src="{{asset('js/landowner/main.js')}}"></script>

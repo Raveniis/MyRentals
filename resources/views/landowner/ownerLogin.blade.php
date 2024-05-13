@@ -54,12 +54,6 @@
                         </div>
                     @endif
 
-                    @if(session()->has("error"))
-                        <div class="warning-messages" style="color:red">
-                            <p>{{session("error")}}</p>
-                        </div>
-                    @endif
-
                     @if(session()->has("success"))
                         <div class="warning-messages" style="color:green">
                             <script>
@@ -83,6 +77,37 @@
     </div>
     
     <script src="{{ asset('js/landowner/login.js') }}"></script>
+    
+
+    @if(session()->has("error"))
+        <script>
+            Swal.fire({
+                icon: "error",
+                title: "Unauthorized User",
+                text: "Invalid email or password",
+            })
+        </script>
+    @endif
+
+    @if(session()->has("logout"))
+        <script>
+            Swal.fire({
+            title: 'Logged Out',
+            text: 'You have been logged out.',
+            icon: 'success',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000, // Display the toast for 3 seconds
+            timerProgressBar: true, // Show a progress bar indicating the remaining time
+            customClass: {
+            popup: 'sweetalert-custom-popup',
+            title: 'sweetalert-custom-title',
+            },
+            background: '#ffffff', // Custom background color for success (white)
+            })
+        </script>
+    @endif
 </body>
  
 </html>

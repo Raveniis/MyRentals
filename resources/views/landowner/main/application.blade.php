@@ -70,7 +70,7 @@
                                         <i class='bx bx-notepad'></i>
                                     </a>
                                 @else
-                                    <div class="icons" title="View" style="color:grey" onclick="archiveConfirmation('{{ htmlspecialchars(route('application.destroy', ['id' => $tenantApplication->id])) }}')">
+                                    <div class="icons" title="Archive" style="color:grey" onclick="archiveConfirmation('{{ htmlspecialchars(route('application.destroy', ['id' => $tenantApplication->id])) }}')">
                                         <i class='bx bxs-archive-in' ></i>
                                     </div>
                                 @endif

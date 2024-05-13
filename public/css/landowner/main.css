@@ -60,15 +60,16 @@ body.dark{
 }
 /* === Custom Scroll Bar CSS === */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 4px;
 }
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
+    background: rgb(100, 142, 255, 0.33);
     border-radius: 12px;
     transition: all 0.3s ease;
+    opacity: .5;
 }
 
 ::-webkit-scrollbar-thumb:hover {

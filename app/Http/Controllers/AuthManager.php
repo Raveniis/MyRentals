@@ -117,7 +117,7 @@ class AuthManager extends Controller
 
             if($user->email_verified_at || $user) //bypass muna verified at HAHHAHAHAH
             {
-                return redirect()->intended(route('dashboard'));
+                return redirect()->intended(route('dashboard'))->with('success', 'login successful');
             }
             Auth::logout();
             
@@ -171,7 +171,7 @@ class AuthManager extends Controller
 
     public function ownerLogout() {
         Auth::logout();
-        return redirect(route('ownerLogin'));
+        return redirect(route('ownerLogin'))->with('logout', 'logout successful');
     }
 
     function logout(){

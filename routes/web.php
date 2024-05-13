@@ -73,6 +73,7 @@ Route::get('/landowner/applications/{id}/view', [TenantApplicationController::cl
 
 //tenant mangament 
 Route::get('/landowner/tenants', [TenantController::class, 'getTenants'])->name('tenants');
+Route::get('/landowner/tenants/remove/{id}', [TenantController::class, 'removeTenant'])->name('tenants.remove');
 
 
 

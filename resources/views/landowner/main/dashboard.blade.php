@@ -9,6 +9,7 @@
     
     <link rel="stylesheet" href="{{asset('css/landowner/main.css')}}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <title>Dashboard</title> 
 </head>
@@ -48,6 +49,10 @@
                         <span class="text">Daily profit</span>
                         <span class="number</span>
                     </div> --}}
+
+                    
+
+                    
                 </div>
             </div>
         </div>
@@ -55,6 +60,25 @@
     </section>
 
     <script src="{{asset("js/landowner/main.js")}}"></script>
+    @if(session()->has("success"))
+        <script>
+            Swal.fire({
+            title: 'Login Successful',
+            icon: 'success',
+            timer: 3000,
+            timerProgressBar: true,
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            customClass: {
+                popup: 'sweetalert-custom-popup',
+                title: 'sweetalert-custom-title',
+                icon: 'sweetalert-custom-icon-success'
+            },
+            background: '#ffffff',
+            });
+        </script>
+    @endif
 </body>
 
 </html>

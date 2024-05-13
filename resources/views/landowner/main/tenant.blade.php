@@ -69,7 +69,7 @@
                                 <div class="icons" title="Edit" style="color:orange">
                                     <i class='bx bx-edit' ></i>
                                 </div>
-                                <div class="icons" title="Remove Tenant" style="color:red" >
+                                <div class="icons" title="Remove Tenant" onclick="deleteConfirmation('{{  htmlspecialchars(route('tenants.remove',  ['id' => $tenant->id ])) }}')" style="color:red" >
                                     <i class='bx bxs-trash'></i>
                                 </div>
                             </td>
@@ -86,34 +86,32 @@
     
 
     @if(session()->has("success"))
-        <div class="warning-messages" style="color:green">
-            <script>
-                Swal.fire(
-                    "Deleted!",
-                    "Rentals has been deleted.",
-                    "success"
-                );
-            </script>
-        </div>
+        <script>
+            Swal.fire(
+                "Deleted!",
+                "{{ session('success') }}",
+                "success"
+            );
+        </script>
     @endif
 
     <script src="{{asset('js/landowner/main.js')}}"></script>
 </body>
 
 <script>
-    function deleteConfirmation(id) {
+    function deleteConfirmation(url) {
     Swal.fire({
         title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this item!",
+        text: "Once removed, you will not be able to recover this item!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#d33",
         cancelButtonColor: "#3085d6",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "Remove",
         cancelButtonText: "Cancel"
       }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = "{{ route('deleteRentals', ['id' => '']) }}" + '/' + id;
+            window.location.href = url;
         }
       });
 }
