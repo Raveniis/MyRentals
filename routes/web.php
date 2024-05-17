@@ -8,22 +8,9 @@ use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantApplicationController;
-use App\Models\TenantApplication;
+use App\Models\HouseRental;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-Route::get('/', [TenantController::class, 'getTenants']);
-
-//login
+//authentication landowner
 Route::get('/landowner/login', [AuthManager::class, 'ownerLogin'])->name('ownerLogin');
 Route::post('/landowner/login', [AuthManager::class, 'ownerLoginPost'])->name('ownerLogin.post');
 Route::get('/landowner/signup', [AuthManager::class, 'ownerSignup'])->name('ownerSignup');
@@ -65,15 +52,25 @@ Route::group(['prefix' => '/landowner', 'middleware' => ['admin']], function () 
     Route::get('tenants/delete/{id}', [TenantController::class, 'delete'])->name('tenants.delete');
 });
 
+//authentication user
 Route::post('/login', [AuthManager::class, 'loginPost']);
 Route::post('/signup', [AuthManager::class, 'signupPost']);
-Route::get('/email/verify/{id}/{hash}', [AuthManager::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
+// Route::get('/email/verify/{id}/{hash}', [AuthManager::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
+
+//user views
+Route::get('/', [HouseRentalController::class, 'getRentals'])->name('index');
+Route::get('/houseRental/{id}', [HouseRentalController::class, 'viewRentals'])->name('houseRentals');
+
+Route::get('/profile', [ProfileController::class, 'userProfile'])->name('userProfile');
+Route::post('/profile/update', [ProfileController::class, 'updateUser'])->name('userProfile.post');
+
 
 //review
 Route::post('/review/{id}', [RentalReviewController::class, 'review']);
 Route::post('/review/edit/{id}', [RentalReviewController::class, 'edit']);
 Route::delete('/review/delete/{id}', [RentalReviewController::class, 'delete']);
 
+//tenant
 Route::post('/tenant/applications/{id}/apply', [TenantApplicationController::class, 'apply']);
 
 //for testing purposes dont mind this
