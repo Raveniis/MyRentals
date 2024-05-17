@@ -10,6 +10,20 @@ use Illuminate\Support\Facades\Validator;
 
 class HouseRentalController extends Controller
 {
+    public function getRentals() {
+        $houseRentals = HouseRental::with('user', 'rentalReviews')->get();
+
+        return view('user.main.index')->with('houseRentals', $houseRentals);
+    }
+
+    public function viewRentals($id){
+        $houseRental = HouseRental::with('user', 'rentalReviews')->findorfail($id);
+
+        $data = compact('houseRental');
+
+        return view('user.main.houseRental', $data);
+    }
+
     public function index()
     {
         $user_id = auth()->user()->id;

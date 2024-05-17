@@ -1,0 +1,437 @@
+:root{
+    --font: 'Poppins';
+    --border1: #e4e4e4;
+    --color1: #2f80cb;
+}    
+
+/* html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+} */
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    outline: none;
+}
+
+a 
+{
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 999;
+    background-color: var(--color1);
+    color: rgb(0, 0, 0);        
+    font-family: var(--font);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, .2);
+}
+
+.menu-icon{
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 20px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.logo-image{
+    display: flex;
+    justify-content: center;
+    min-width: 45px;
+}
+.logo-image img{
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.search input[type="text"]{
+    width: 500px;
+    background-color: rgb(245, 245, 245);
+    border-radius: 5px;
+    padding: 8px 20px;
+    color: #5f5f5f;     
+    font-family: var(--font);
+    font-size: 16px;
+    transition: .3s; 
+}
+
+.search input:focus{
+    background-color: rgb(231, 231, 231);
+    color: black;
+    transition: .3s;
+}
+
+.search input:focus~i {
+    color: black;
+    transition: .3s;
+}
+
+.search {
+    display: flex;
+    
+    position: relative;
+}
+.search i {
+    position: relative;
+    top: 5px;
+    left: -40px;
+    margin-right: 10px;
+    padding: 0px 5px;
+    font-size: 24px;
+    color: var(--grey);
+    transition: .3s;
+    cursor: pointer;
+}
+
+.header-right
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 18px;
+    margin-right: 20px;
+}
+
+.login p
+{
+    padding: 3px 20px;     
+}
+
+.login:nth-child(1)
+{
+    color: white;
+    margin-right: 4px;
+}
+
+.login:nth-child(2)
+{
+    background-color: white;
+    border-radius: 20px;
+}
+
+.cart
+{
+    display: flex;
+    height: 35px;
+    background-color: #FA6400;
+    font-size: 16px;
+    color: white;
+    margin-right: 20px;
+    padding: 8px 10px;
+    border-radius: 8px;
+
+}   
+
+.cart i
+{
+    position: relative;
+    font-size: 22px;
+    padding: 0px 5px;
+}
+
+.cart p
+{
+    padding-left: 5px;
+}
+
+.user-profile-container{
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+    background-color: white;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+}
+
+.user-profile-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-profile-container .profile-link,
+.search .filter .profile-link 
+{
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: white;
+    padding: 10px 0;
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, .1);
+    border-radius: 10px;
+    width: 160px;
+    list-style: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: all .3s ease;
+}
+
+.search .filter .profile-link {
+    width: 120px;
+    right: 50px;
+}
+
+.user-profile-container .profile-link.show,
+.search .filter .profile-link.show 
+{
+    opacity: 1;
+    pointer-events: visible;
+    top: 100%;
+}
+
+.user-profile-container .profile-link a,
+.search .filter .profile-link a
+{
+    padding: 10px 16px;
+    display: flex;
+    grid-gap: 10px;
+    font-size: 14px;
+    color: black;
+    align-items: center;
+    transition: all .3s ease;
+}
+
+.user-profile-container .profile-link li:nth-last-child(2)
+{
+    padding-top: 10px;
+    border-top: 1px solid var(--border1);
+    margin-top: 10px;
+}
+
+.user-profile-container .profile-link a:hover,
+.search .filter .profile-link a:hover{
+    background: rgb(233, 233, 233);
+}
+
+
+footer {
+    color: white;
+    background-color: var(--color1);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-links
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 550px;
+}
+
+.footer-content
+{
+    display: flex;
+    width: 90%;
+    justify-content: center;
+}
+
+.footer-content-1
+{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    flex-basis: 65%;
+}
+
+.footer-content-1 h3, .footer-content-1 p 
+{
+    width: 80%;
+}
+
+.footer-content-1 h3, .footer-content-2 h3
+{   
+    font-size: 24px;
+    padding: 10px 0px;
+}
+
+.footer-content-1 p, .footer-content-2 p
+{   
+    /* font-size: 15px; */
+    line-height: 18px;
+    padding: 4px 0px;
+}
+
+.footer-content-2
+{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    flex-basis: 35%;
+}
+
+.footer-item
+{
+    padding: 10px 0px;
+}
+
+.footer-copyright
+{
+    display: flex;
+    background-color: #0c243d;
+    justify-content: center;
+    padding: 15px 20px;
+}
+
+.active-category {
+    color: rgb(255, 166, 50); /* Change this to the desired color for the active category */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+
+}
+
+.container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 20px;
+    background: url('assets/img/wall.png') center center/cover no-repeat;
+}
+
+.section-title {
+    padding: 20px;
+    font-size: 30px;
+    color: #333;
+    text-align: center;
+}
+
+.wrapper {
+    background: #ffffff;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.chat-area {
+    background-color: #f5f5f5;
+    color: #333;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+}
+
+.chat-area header {
+    display: flex;
+    align-items: center;
+    padding: 18px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.chat-area header img {
+    height: 40px;
+    width: 40px;
+    margin-right: 15px;
+    border-radius: 50%;
+}
+
+.users-list {
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+}
+
+.users-list a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    transition: 0.3s;
+}
+
+.users-list a img {
+    height: 50px; 
+    width: 50px; 
+    border-radius: 50%;
+    border: 2px solid #fff; 
+    margin-right: 10px;
+}
+
+.users-list a .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.users-list a .details p {
+    color: #555;
+    margin: 0;
+    font-size: 14px;
+}
+
+.users-list a:hover {
+    background-color: #c4eafc;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+
+
+
+
+
+

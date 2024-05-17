@@ -3,29 +3,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Buyer and Seller Profile Setting</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-    <link rel="stylesheet" href="{{ asset('css/landowner/main.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
-    <title>profile</title>
 </head>
 
 <body>
-@include('landowner.components.sidebar')
-
-<section class="dashboard">
-    @include('landowner.components.header')
-
+    <!-- Start: Ludens Users - 0 Profile Content -->
     <div class="container-fluid" style="margin-top: 63px;">
         <div class="card shadow mb-3">
-            <div class="card-header py-3">
-                <p class="text-primary m-0 fw-bold" style="font-size: 22px;"><span style="color: rgb(15, 17, 20);">User Profile</span></p>
+            <div class="card-header py-3" style="display: flex"> 
+                <a style="cursor: pointer; margin-right: 10px; font-size: 30px; color: black;" href="{{route('index')}}">
+                    <i class='bx bx-arrow-back'></i>
+                </a>
+                <p class="text-primary m-0 fw-bold" style="font-size: 22px;"><span style="color: rgb(15, 17, 20);">User Settings</span></p>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('profile.post') }}"  enctype="multipart/form-data" >
+                <form method="POST" action="{{ route('userProfile.post') }}"  enctype="multipart/form-data" >
                     @csrf
                     <div class="row" style="margin-bottom: 25px;text-align: left;">
                         <div class="col-sm-4 col-md-4 col-lg-3 col-xl-2 col-xxl-2" style="display: inline;text-align: center;margin-bottom: 25px;">
@@ -117,11 +112,9 @@
                 </form>
             </div>
         </div>
-    </div>
-</section>
+    </div><!-- End: Ludens Users - 0 Profile Content -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="{{ asset('js/landowner/main.js') }}"></script>
 {{-- <script src="js/userprofile.js"></script> --}}
 
 <script>
@@ -143,5 +136,4 @@
   })
 
 </script>
-
 </html>
