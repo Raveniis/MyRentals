@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Validator;
 
 class TenantApplicationController extends Controller
 {
+    public function applicationForm($id) {
+        $rentals = HouseRental::findorfail($id);
+
+        if($rentals->status === 0) {
+            return redirect(route('houseRentals', ['id' => $id]))->with("notAvailable", 'no');
+        }
+
+        return view('user.main.applicationForm')->with('houseRental', $rentals);
+    }
     public function getTenantApplication() {
         $user_id = auth()->user()->id;
  
@@ -27,7 +36,7 @@ class TenantApplicationController extends Controller
     public function userApplicationStatus() {
         $user_id = auth()->user()->id;
  
-        $tenantApplications =  TenantApplication::where('tenant_id', $user_id)->with('houseRental')->orderby('created_at', 'desc')->paginate(10);
+        $tenantApplications =  TenantApplication::where('tenant_id', $user_id)->with('houseRental')->withTrashed()->orderby('created_at', 'desc')->paginate(10);
 
         // return $tenantApplications;
         return view('user.main.application')->with('tenantApplications', $tenantApplications);
@@ -95,29 +104,29 @@ class TenantApplicationController extends Controller
     }
 
     public function apply(Request $request, $id) {
-        $validatedData = Validator::make($request->all(), [
-            'occupants_number' => 'required|numeric|max:8',
+        $rentals = HouseRental::findorfail($id);
+
+        $request->validate([
+            'occupants_number' => 'required|numeric|max:' . $rentals->maximum_occupants,
             'move_in_date' => 'required|date|after:today',
-            'lease_term' => 'required|numeric|max:8',
+            'lease_term' => 'required|numeric|min:12|max:60',
             'monthly_income' => 'required|numeric',
             'employment_status' => 'required|in:employed,unemployed',
             'emergency_num' => 'required|size:11|regex:/(09)[0-9]{9}/',
         ]);
-
-        if($validatedData->fails()){
-            return response()->json(['error' => $validatedData->errors()]);
-        }
         
         //check if house rental exist
-        HouseRental::findorfail($id);
+        
 
-        $tenantApplication = new TenantApplication($validatedData->validated());
+        $user_id = auth()->user()->id;
+
+        $tenantApplication = new TenantApplication($request->all());
         // $tenantApplication->tenant_id = Auth()->user()->id;
-        $tenantApplication->tenant_id = 2;
+        $tenantApplication->tenant_id = $user_id;
         $tenantApplication->rental_id = $id;
         $tenantApplication->save();
 
-        return response()->json(['success' => 'item has been created']);
+        return redirect(route('houseRentals', ['id' => $id]))->with(['success' => 'item has been created']);
 
     }
 }

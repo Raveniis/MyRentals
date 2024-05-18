@@ -7,6 +7,7 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body> 
@@ -54,7 +55,7 @@
                 <h2>{{ $houseRental->name }}</h2>
             </div>
             <div class="product-rating">
-                stars here
+                {{ number_format($averageRating, 2) }} Stars
             </div>
             <div class="product-price">
                 <p>{{ $houseRental->monthly_rent }}/mo</p>
@@ -73,11 +74,11 @@
             </div>
             <div class="product-condition">
                 <p>status: </p>
-                <p style="font-size: 16px;">{{ ($houseRental->maximum_occupants === 1) ? 'available' : 'unavailable'  }}</p>
+                <p style="font-size: 16px;">{{ ($houseRental->status === 1) ? 'available' : 'unavailable'  }}</p>
             </div>
 
             <div class="product-actions">
-                <a class="make-an-offer" href="">
+                <a class="make-an-offer" href="{{route('applicationForm', ['id' => $houseRental->id])}}">
                     <button>Apply</button>
                 </a>
             </div>
@@ -85,56 +86,69 @@
     </div>
 </section>
 
-{{-- <section class="container">
+<section class="container" style="margin-bottom: 20px">
     <div class="review-container">
         <div class="review-content">
             <div class="review">
                 <h4>Product Review</h4>
-                
                 <div class="review-details-container">
+                    @if (count($houseRental->rentalReviews) > 0)
+                    @foreach ($houseRental->rentalReviews as $reviews)
                     <div class="review-profile">
-                        <div class="profileContainer" style="top: 5px">
-                            <img class="profilePic" src="resource\profilepics\" alt="img">
+                        <div class="profileContainer" style="top: 5px" >
+                            <img class="profilePic" src="{{ asset($reviews->user->profile_pic ? $reviews->user->profile_pic : 'images/default.png') }}" alt="img">
                         </div>
                             <div class="rating-details">
                                 <div class="review-name">
-                                    <p><namehere</p>
+                                    <p>{{$reviews->user->firstname}} {{$reviews->user->lastname}}</p>
                                 </div>
                                 <div class="review-stars">
-                                    @php
-                                        $filledStar = (int)$review['rating'];
-                                        $starsLeft = 5;
-                                        for($i = 0; $i < $filledStar; $i++)
-                                        {
-                                            echo "<i class='bx bxs-star' title='" . (int)$review['rating'] . "/5"  . "'></i>";
-                                            $starsLeft -= 1;
-                                        }
-                                        while ($starsLeft > 0)
-                                        {
-                                            echo "<i class='bx bx-star' title='" . (int)$review['rating'] . "/5"  . "'></i>";
-                                            $starsLeft -= 1;
-                                        }
-                                    @endphp
+                                    {{$reviews->ratings}} Stars
                                 </div>
                                 <div class="review-date">
                                     <p>
-                                        review date
+                                        {{$reviews->created_at->format('Y-m-d')}}
                                     </p>
                                 </div>
                                 <div class="user-review">
                                     <p>
-                                        comment
+                                        {{$reviews->comment}}
                                     </p>
                                 </div>
                             </div>
-                        
                     </div>
+                    @endforeach
+                        
+                    @else 
+                    <div class="placeholder">
+                        No Product Review Available
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
-</section> --}}
+</section>
 
+@if(session()->has("success"))
+    <script>
+        Swal.fire(
+            "Success!",
+            "Application form has been submitted.",
+            "success"
+        );
+    </script>
+@endif
+
+@if(session()->has("notAvailable"))
+    <script>
+        Swal.fire(
+            "Error!",
+            "Rentals is not available.",
+            "error"
+        );
+    </script>
+@endif
 </main>     
 
 

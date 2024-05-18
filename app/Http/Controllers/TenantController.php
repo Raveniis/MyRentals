@@ -23,6 +23,16 @@ class TenantController extends Controller
         return view('landowner.main.tenant')->with('tenants', $tenants);
     }
 
+    public function userTenant() {
+        $user_id = auth()->user()->id;
+        // return Tenant::with('tenantApplication')->get();
+        $tenants = Tenant::where('user_id', $user_id)->with('tenantApplication.houseRental')
+                                                ->orderBy('status', 'desc')
+                                                ->get();
+
+        return view('user.main.history')->with('tenants', $tenants);
+    }
+
     public function show($id) {
         $tenant = Tenant::with('tenantApplication', 'user', 'tenantApplication.houseRental')->findorfail($id);
 

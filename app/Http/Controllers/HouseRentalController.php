@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\HouseRental;
+use App\Models\RentalReview;
 use GuzzleHttp\Psr7\Query;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -17,9 +18,17 @@ class HouseRentalController extends Controller
     }
 
     public function viewRentals($id){
-        $houseRental = HouseRental::with('user', 'rentalReviews')->findorfail($id);
+        $houseRental = HouseRental::with('user', 'rentalReviews', 'rentalReviews.user')->findorfail($id);
 
-        $data = compact('houseRental');
+        $ratings = 0;
+
+        foreach ($houseRental->rentalReviews as $review) {
+            $ratings += $review->ratings;
+        }
+
+        $averageRating = count($houseRental->rentalReviews) > 0 ? $ratings / count($houseRental->rentalReviews) : 0;
+
+        $data = compact('houseRental', 'averageRating');
 
         return view('user.main.houseRental', $data);
     }

@@ -13,13 +13,10 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 class AuthManager extends Controller
 {
     function login(){
-        return view('login');
+        return view('user.login');
     }
 
     function loginPost(Request $request){
-        
-        Auth::logout();
-
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required'
@@ -31,28 +28,25 @@ class AuthManager extends Controller
         if(Auth::attempt($credentials)){
             $user = auth()->user();
 
-            if($user->email_verified_at)
+            if($user->email_verified_at || $user)
             {
-                return response()->json(['success' => 'login successfully'], 200);
-                // return redirect()->intended(route('home'));
+                return redirect()->intended(route('index'));
             }
             Auth::logout();
             
-            return response()->json(['error' => 'Please verify your email'], 200);
-            return redirect(route('login'))->with("error", "Please verify your email to proceed.")->withInput( $request->except('$password'));
+            return redirect(route('userLogin'))->with("error", "Please verify your email to proceed.")->withInput( $request->except('$password'));
         }
         
-        return response()->json(['error' => 'The your email or password are incorrect'], 400);
-        return redirect(route('login'))->with("error", "The your email or password are incorrect.")->withInput( $request->except('$password'));
+        return redirect(route('userLogin'))->with("error", "The your email or password are incorrect.")->withInput( $request->except('$password'));
         // if login failed
     }
     
     function signup(){
-        return view('signup');
+        return view('user.signup');
     }
 
     function signupPost(Request $request){
-        $user = Validator::make($request->all(), [
+        $request->validate([
             'firstname' => 'required|string|max:128',
             'lastname' => 'required|string|max:128',
             'contact_num' => 'required|size:11|regex:/(09)[0-9]{9}/',
@@ -60,12 +54,8 @@ class AuthManager extends Controller
             'birthdate' => 'required|date|before:18 years ago',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|confirmed|required_with:password_confirmation',
-            'role' => 'required|in:landowner,renter'
+            'role' => 'required|in:landowner,tenant'
         ]);
-
-        if ($user->fails()) {
-            return response()->json(['errors' => $user->errors()]);
-        }
 
         $data['firstname'] = $request->firstname;
         $data['lastname'] = $request->lastname;
@@ -83,13 +73,13 @@ class AuthManager extends Controller
         }
 
         // send email 
-        event(new Registered($user));
+        // event(new Registered($user));
 
         $credentials = $request->only('email', 'password');
 
         Auth::attempt($credentials);
 
-        return response()->json(['success' => 'account has been created, please check your email']);
+        return redirect(route('userLogin'))->with('success', 'yay');
         // return redirect(route('login'))->with("success", "Account has been created. Please verify your email to proceed");
     }
 

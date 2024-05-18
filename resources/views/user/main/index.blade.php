@@ -24,8 +24,8 @@
         <div class="swiper-wrapper">
             <!-- Slides -->
             <div class="swiper-slide"><img src="{{ asset('images/advertisement 1.jpg') }}"></div>
-            <div class="swiper-slide"><img src="resource/furyram.jpg"></div>
-            <div class="swiper-slide"><img src="resource/geforce.jpg"></div>
+            <div class="swiper-slide"><img src="{{ asset('images/advertisement 2.jpg') }}"></div>
+            <div class="swiper-slide"><img src="{{ asset('images/advertisement 1.jpg') }}"></div>
         </div>
         <!-- If we need pagination -->
         <div class="swiper-pagination"></div>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="card-seller">
                         <!-- <img src="#" alt="pic"> -->
-                        <p>owner: {{ $houseRental->user->firstname }} {{ $houseRental->user->lastname }}</p>
+                        <p>Owner: {{ $houseRental->user->firstname }} {{ $houseRental->user->lastname }}</p>
                         <div class="details">
                             <div><p>Contacts:</p></div>
                             <div>

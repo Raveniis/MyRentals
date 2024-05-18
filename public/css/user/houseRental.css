@@ -214,16 +214,16 @@ body
     flex-direction: row;
 }
 
-.product-rating i
+.product-rating
 {
-    color: #fece3f;
+    color: rgb(241, 137, 0);
 }
 
 .product-price
 {
     font-size: 22px;
     color: rgb(241, 137, 0);
-    padding: 10px 10px; 
+    padding: 10px 0px; 
 }
 
 .product-condition
@@ -586,5 +586,11 @@ body
     font-size: 22px;
     width: 100%;
     margin-top: 20px;
+    padding: 30px;
+}
+
+.placeholder {
+    font-size: 24px;
+    margin-top: 10px;
     padding: 30px;
 }

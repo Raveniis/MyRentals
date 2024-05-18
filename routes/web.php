@@ -54,8 +54,10 @@ Route::group(['prefix' => '/landowner', 'middleware' => ['admin']], function () 
 });
 
 //authentication user
-Route::post('/login', [AuthManager::class, 'loginPost']);
-Route::post('/signup', [AuthManager::class, 'signupPost']);
+Route::get('/login', [AuthManager::class, 'login'])->name('userLogin');
+Route::post('/login', [AuthManager::class, 'loginPost'])->name('userLogin.post');;
+Route::get('/signup', [AuthManager::class, 'signup'])->name('userRegister');
+Route::post('/signup', [AuthManager::class, 'signupPost'])->name('userRegister.post');
 // Route::get('/email/verify/{id}/{hash}', [AuthManager::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
 
 //user views
@@ -68,12 +70,21 @@ Route::post('/profile/update', [ProfileController::class, 'updateUser'])->name('
 Route::get('/applicationStatus', [TenantApplicationController::class, 'userApplicationStatus'])->name('userApplication');
 
 //review
-Route::post('/review/{id}', [RentalReviewController::class, 'review']);
-Route::post('/review/edit/{id}', [RentalReviewController::class, 'edit']);
-Route::delete('/review/delete/{id}', [RentalReviewController::class, 'delete']);
 
-//tenant
-Route::post('/tenant/applications/{id}/apply', [TenantApplicationController::class, 'apply']);
+Route::group(['middleware' => ['auth']], function () {
+    //tenant
+    Route::get('/tenant/applications/{id}', [TenantApplicationController::class, 'applicationForm'])->name('applicationForm');
+    Route::post('/tenant/applications/{id}/apply', [TenantApplicationController::class, 'apply'])->name('applicationForm.post');
+
+    
+    Route::post('/review/{id}', [RentalReviewController::class, 'review']);
+    Route::post('/review/edit/{id}', [RentalReviewController::class, 'edit']);
+    Route::delete('/review/delete/{id}', [RentalReviewController::class, 'delete']);
+
+    Route::get('/history', [TenantController::class, 'userTenant'])->name('userTenant');
+
+
+});
 
 //for testing purposes dont mind this
 Route::get('/token', function () {

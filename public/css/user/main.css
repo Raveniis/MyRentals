@@ -80,7 +80,7 @@ body
 
 .product-container
 {
-    width: 80%;
+    width: 83%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -88,7 +88,7 @@ body
 
 .card {
     flex: 1;
-    flex-basis: 20%;
+    flex-basis: 25%;
     max-width: 45%;
     width: 300px;
     background-color: #fff;
@@ -108,7 +108,7 @@ body
 .card img {
     padding: 10px;
     width: 100%;
-    height: 150px;
+    height: 200px;
     object-fit: cover;
     border-bottom: 1px solid #ddd;
 }
@@ -145,8 +145,19 @@ body
 {
     font-size: 14px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin-bottom: var(--card-content-margin);
+}
+
+.card-seller .details > :nth-child(2)
+{
+    margin-left: 10px;
+    color: grey;
+}
+
+.card-seller .details > :nth-child(2) p
+{
+    padding: 2px 0px;
 }
 
 .card-seller .details div

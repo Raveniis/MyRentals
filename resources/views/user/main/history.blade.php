@@ -24,7 +24,7 @@
     <div class="table-container">
         <div class="table-content">
             <div class="table-header">
-                <h4>Rental Application</h4>
+                <h4>Rental History</h4>
                 <div class="rows">
                     <div class="row-header">
                         <div class="product-pic">
@@ -40,62 +40,30 @@
                         </div>
                         <div class="triple-dot">    </div>
                     </div>
-                    @foreach ($tenantApplications as $tenantApplication)
+                    @foreach ($tenants as $tenantApplication)
                     <div class="row-content">
                         <div class="product-name">
                             <div>
-                                <p> {{$tenantApplication->houseRental->name}} </p>
+                                <p> {{$tenantApplication->tenantApplication->houseRental->name}} </p>
                                 <div style="margin-top: 10px; display: flex; flex-direction: column;">
                                     <div style="display: flex; flex-direction: row; font-size: 14px;">
-                                        <p style="color: #5f5f5f; width: 100px;">{{$tenantApplication->houseRental->description}}</p>
+                                        <p style="color: #5f5f5f; width: 100px;">{{$tenantApplication->tenantApplication->houseRental->description}}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="status">
-                            <p style="color: orange;">₱{{ $tenantApplication->houseRental->monthly_rent}}</p>
+                            <p style="color: orange;">₱{{ $tenantApplication->tenantApplication->houseRental->monthly_rent}}</p>
                         </div>
                         <div class="status">
-                            @if ($tenantApplication->application_status == 'pending')
-                                <p style="color: orange;">{{ $tenantApplication->application_status}}</p>
-                            @elseif ($tenantApplication->application_status == 'rejected')
-                            <p style="color: red;">{{ $tenantApplication->application_status}}</p>
-                            @elseif ($tenantApplication->application_status == 'accepted')
-                            <p style="color: green;">{{ $tenantApplication->application_status}}</p>
+                            @if ($tenantApplication->status == 1)
+                                <p style="color: green;">Currently a tenant</p>
+                            @elseif ($tenantApplication->status == 0)
+                            <p style="color: red;">Currently not a tenant</p>
                             @endif
                         </div>
                         <div class="triple-dot" data-dropdown>
-                                {{-- if($transaction['status'] == "Delivering")
-                                {
-                                    echo "<p style='font-size: 14px; color: #5f5f5f; cursor: pointer;' onclick='cancelOrder(" . $transaction['transactionID'] . ", this)'>Cancel order</p>";
-                                }
-                                else if ($transaction['status'] == "Completed")
-                                {
-                                    echo '
-                                    <p style="font-size: 14px; color: #5f5f5f; cursor: pointer;" class="" onclick="openOldRatingForm(\'' .  $transaction['productName'] . '\' ,  ' . $transaction['productID'] . ' , ' . $review['rating'] . ' , \'' . $review['comment'] . '\')">Edit rating</p>
-                                    ';
-                                }
-                                else if ($transaction['status'] == "Delivered")
-                                {
-                                    echo '
-                                    <p style="font-size: 14px; color: #5f5f5f; cursor: pointer;" class="" onclick="openOldRatingForm(\'' .  $transaction['productName'] . '\' ,  ' . $transaction['productID'] . ' , ' . $review['rating'] . ' , \'' . $review['comment'] . '\')">Edit rating</p>
-                                    ';
-                                }
-                            }
-                            else
-                            {
-                                if($transaction['status'] == "Delivered" || $transaction['status'] == "Completed")
-                                {
-                                    echo '
-                                        <p style="font-size: 14px; color: #5f5f5f; cursor: pointer;" class="" onclick="openRatingForm(\'' .  $transaction['productName'] . '\' ,  ' . $transaction['productID'] . ')">Rate product</p>
-                                    ';
-
-                                }
-                                else if($transaction['status'] == "Delivering")
-                                {
-                                    echo "<p style='font-size: 14px; color: #5f5f5f; cursor: pointer;' onclick='cancelOrder(" . $transaction['transactionID'] . ", this)'>Cancel order</p>";
-                                }
-                            } --}}
+                                <p>Rate</p>
                         </div>
                     </div>
                     @endforeach
