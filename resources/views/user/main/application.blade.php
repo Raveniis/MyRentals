@@ -1,11 +1,11 @@
-<!DOCTYPE html>
 <html>
 
 <head>
     <title>PCEX</title>
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/wishlist.css">
-    <link rel="stylesheet" href="css/transaction.css">
+    <link rel="stylesheet" href="{{ asset('css/user/header.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/user/houseRental.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/user/applications.css')}}">
+    {{-- <link rel="stylesheet" href="css/transaction.css"> --}}
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -13,8 +13,8 @@
 
 <body> 
 
-<!-- header section -->
-<?php include_once "include/header.php"?>
+@include('user.component.header')
+
 
 <!-- main content -->
 <main>
@@ -28,129 +28,44 @@
                 <div class="rows">
                     <div class="row-header">
                         <div class="product-pic">
-                            <p>Product</p>
+                            <p>House Rentals</p>
                         </div>
-                        <div class="product-name"></div>  
+                        <div class="status" style="flex-basis: 15%;">
+                        </div>  
                         <div class="status">
-                            <p>Quantity</p>
-                        </div>
-                        <div class="status">
-                            <p>Payment method</p>
+                            <p>Monthly Rent</p>
                         </div>
                         <div class="status">
                             <p>Status</p>
                         </div>
                         <div class="triple-dot">    </div>
                     </div>
-                    <?php
-                        include_once "conn.php";
-
-                        // get the first 16 product in the database
-                        $SQL = "SELECT transactions.*, products.productName, products.productImage, products.price, products.category
-                                FROM transactions
-                                JOIN products ON transactions.productId = products.productId
-                                WHERE transactions.buyerID=?
-                                ORDER BY transactions.transaction_date DESC; ";
-
-                        $stmt = mysqli_stmt_init($conn);
-                        if(!mysqli_stmt_prepare($stmt, $SQL))
-                        {
-                            echo "an error has occured";
-                        }
-                        mysqli_stmt_bind_param($stmt, 'i', $userID);
-                        mysqli_stmt_execute($stmt);
-                        $results = mysqli_stmt_get_result($stmt);   
-                
-                        mysqli_stmt_close($stmt);
-
-                        $numRows = mysqli_num_rows($results);
-
-                        if($numRows === 0)
-                        {
-                            echo "<div class='no-items'><p>You currently don't have any transaction  .</p></div>";
-                        }
-                    
-                        while($transaction = mysqli_fetch_assoc($results))
-                        {
-                    ?>
+                    @foreach ($tenantApplications as $tenantApplication)
                     <div class="row-content">
-                        <div class="product-pic">
-                            <img src="resource/products/<?php echo $transaction['productImage']; ?>">
-                        </div>
                         <div class="product-name">
                             <div>
-                                <p><?php echo $transaction['productName']; ?></p>
-                                <?php if($transaction["method"] != "Exchange") {?>
-                                    <div style="margin-top: 10px; display: flex; flex-direction: column;">
-                                        <div style="display: flex; flex-direction: row; font-size: 14px;">
-                                            <p style="color: #5f5f5f; width: 100px;">Price: </p><p style="color: orange;"><?php echo '₱ ' . $transaction['totalPrice']; ?></p>
-                                        </div>
-                                        <div style="display: flex; flex-direction: row; font-size: 14px; margin-top: 3px;">
-                                            <p style="color: #5f5f5f; width: 100px;">Delivery fee: </p><p style="color: orange;"><?php echo '₱ ' . $transaction['shippingFee']; ?></p>
-                                        </div>
-                                        <div style="display: flex; flex-direction: row; font-size: 14px; margin-top: 3px;">
-                                            <p style="color: #5f5f5f; width: 100px;">Total: </p><p style="color: orange; font-size: 16px;"><?php echo '₱ ' . $transaction['totalPrice'] + $transaction['shippingFee']; ?></p>
-                                        </div>
+                                <p> {{$tenantApplication->houseRental->name}} </p>
+                                <div style="margin-top: 10px; display: flex; flex-direction: column;">
+                                    <div style="display: flex; flex-direction: row; font-size: 14px;">
+                                        <p style="color: #5f5f5f; width: 100px;">{{$tenantApplication->houseRental->description}}</p>
                                     </div>
-                                <?php } ?>
+                                </div>
                             </div>
                         </div>
                         <div class="status">
-                            <p><?php echo $transaction['quantity']; echo ($transaction['quantity'] == 1) ? " piece" : " pieces"; ?></p>
+                            <p style="color: orange;">₱{{ $tenantApplication->houseRental->monthly_rent}}</p>
                         </div>
                         <div class="status">
-                            <p><?php echo $transaction['method'];?></p>
-                        </div>
-                        <div class="deliveryStatus">
-                            <?php 
-                                if($transaction["status"] == "Cancelled")
-                                {
-                                    echo '
-                                        <p style="color: red;">' . $transaction["status"] . '</p>
-                                    ';
-                                }
-                                else if ($transaction["status"] == "Completed")
-                                {
-                                    echo '
-                                        <p style="color: green;">' . $transaction["status"] . '</p>
-                                    ';
-                                }
-                                else if ($transaction["status"] == "Delivering")
-                                {
-                                    echo '
-                                        <p style="color: orange;">' . $transaction["status"] . '</p>
-                                    ';
-                                }
-                                else if ($transaction["status"] == "Delivered")
-                                {
-                                    echo '
-                                        <p style="color: green;">' . $transaction["status"] . '</p>
-                                    ';
-                                }
-                                else
-                                {
-                                    echo '
-                                        <p>' . $transaction["status"] . '</p>
-                                    ';
-                                }
-                                
-                            ?>
+                            @if ($tenantApplication->application_status == 'pending')
+                                <p style="color: orange;">{{ $tenantApplication->application_status}}</p>
+                            @elseif ($tenantApplication->application_status == 'rejected')
+                            <p style="color: red;">{{ $tenantApplication->application_status}}</p>
+                            @elseif ($tenantApplication->application_status == 'accepted')
+                            <p style="color: green;">{{ $tenantApplication->application_status}}</p>
+                            @endif
                         </div>
                         <div class="triple-dot" data-dropdown>
-                        <?php
-                            
-                            $SQL = "SELECT * FROM `productreview` WHERE productID = {$transaction['productID']} AND userID= {$userID}";
-
-                            $stmt = mysqli_stmt_init($conn);
-                            if(!mysqli_stmt_prepare($stmt, $SQL))
-                            {
-                                echo "an error has occured";
-                            }
-                            mysqli_stmt_execute($stmt);
-                            $reviewResult = mysqli_stmt_get_result($stmt);   
-                            if($review = mysqli_fetch_assoc($reviewResult))
-                            {
-                                if($transaction['status'] == "Delivering")
+                                {{-- if($transaction['status'] == "Delivering")
                                 {
                                     echo "<p style='font-size: 14px; color: #5f5f5f; cursor: pointer;' onclick='cancelOrder(" . $transaction['transactionID'] . ", this)'>Cancel order</p>";
                                 }
@@ -180,11 +95,10 @@
                                 {
                                     echo "<p style='font-size: 14px; color: #5f5f5f; cursor: pointer;' onclick='cancelOrder(" . $transaction['transactionID'] . ", this)'>Cancel order</p>";
                                 }
-                            }
-                        ?>
+                            } --}}
                         </div>
                     </div>
-                    <?php } ?>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -192,7 +106,7 @@
 
 </section>
 
-<section id="ratingsForm" class="popup-form">
+{{-- <section id="ratingsForm" class="popup-form">
     <div class ="rate-header">Rate product</div>
     <div id="productName" class ="rate-product">Geforce GTX</div>
     <form id="ratingForm" action="" method="POST">
@@ -220,7 +134,7 @@
             <input type="button" value="Cancel" onclick="closeRatingForm()">        
         </div>
     </form>
-</section>
+</section> --}}
 
 </main>
 

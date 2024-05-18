@@ -92,28 +92,16 @@
                 <h4>Product Review</h4>
                 
                 <div class="review-details-container">
-                    <?php
-                        $results = GetProductReview($conn, $productID);
-
-                        $numRows = mysqli_num_rows($results);
-
-                        if($numRows === 0){
-                            echo '<div class="product-message"> <p>there are currently 0 product rating</p></div>';
-                        }
-
-                        while($review = mysqli_fetch_assoc($results))
-                        {
-                    ?>
                     <div class="review-profile">
                         <div class="profileContainer" style="top: 5px">
-                            <img class="profilePic" src="resource\profilepics\<?php echo ($review['profilepic'] == null) ? "default.png" : $review['profilepic'] ?>" alt="img">
+                            <img class="profilePic" src="resource\profilepics\" alt="img">
                         </div>
                             <div class="rating-details">
                                 <div class="review-name">
-                                    <p><?php echo $review['firstname'] . " " . $review['lastname']?></p>
+                                    <p><namehere</p>
                                 </div>
                                 <div class="review-stars">
-                                    <?php
+                                    @php
                                         $filledStar = (int)$review['rating'];
                                         $starsLeft = 5;
                                         for($i = 0; $i < $filledStar; $i++)
@@ -126,22 +114,21 @@
                                             echo "<i class='bx bx-star' title='" . (int)$review['rating'] . "/5"  . "'></i>";
                                             $starsLeft -= 1;
                                         }
-                                    ?>
+                                    @endphp
                                 </div>
                                 <div class="review-date">
                                     <p>
-                                        <?php echo (new DateTime($review['reviewDate']))->format('Y-m-d'); ?>
+                                        review date
                                     </p>
                                 </div>
                                 <div class="user-review">
                                     <p>
-                                        <?php echo $review['comment']?>
+                                        comment
                                     </p>
                                 </div>
                             </div>
                         
                     </div>
-                    <?php }?>
                 </div>
             </div>
         </div>

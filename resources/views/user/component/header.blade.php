@@ -13,7 +13,7 @@
             <div class='user-profile-container' id='profile'>
                 <img  src="{{ asset(auth()->user()->profile_pic ? auth()->user()->profile_pic : 'images/default.png') }}" alt='img'>
                 <ul class='profile-link'>
-                    <li><a href='offerList.php'><i class='bx bx-list-ul'></i></i></i>Application Status</a></li>
+                    <li><a href='{{ route('userApplication')}}'><i class='bx bx-list-ul'></i></i></i>Application Status</a></li>
                     <li><a href='transaction.php'><i class='bx bx-history'></i>Rental History</a></li>
                     <li><a href='{{ route('userProfile')}}'><i class='bx bxs-user-circle icon' ></i>Profile</a></li>
                     <li><a href=''><i class='bx bxs-log-out-circle' ></i>Logout</a></li>

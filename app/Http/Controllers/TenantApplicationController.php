@@ -24,6 +24,15 @@ class TenantApplicationController extends Controller
         return view('landowner.main.application')->with('tenantApplications', $tenantApplications);
     }
 
+    public function userApplicationStatus() {
+        $user_id = auth()->user()->id;
+ 
+        $tenantApplications =  TenantApplication::where('tenant_id', $user_id)->with('houseRental')->orderby('created_at', 'desc')->paginate(10);
+
+        // return $tenantApplications;
+        return view('user.main.application')->with('tenantApplications', $tenantApplications);
+    }
+
     public function accept($id) {
         $tenantApplication = TenantApplication::findorfail($id);
 

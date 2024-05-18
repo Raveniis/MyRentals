@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantApplicationController;
 use App\Models\HouseRental;
+use App\Models\TenantApplication;
 
 //authentication landowner
 Route::get('/landowner/login', [AuthManager::class, 'ownerLogin'])->name('ownerLogin');
@@ -64,6 +65,7 @@ Route::get('/houseRental/{id}', [HouseRentalController::class, 'viewRentals'])->
 Route::get('/profile', [ProfileController::class, 'userProfile'])->name('userProfile');
 Route::post('/profile/update', [ProfileController::class, 'updateUser'])->name('userProfile.post');
 
+Route::get('/applicationStatus', [TenantApplicationController::class, 'userApplicationStatus'])->name('userApplication');
 
 //review
 Route::post('/review/{id}', [RentalReviewController::class, 'review']);
