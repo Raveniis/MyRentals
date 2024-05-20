@@ -25,7 +25,7 @@
                 <p><a href='{{ route('userRegister')}}'>Register</a></p>
             </div>
             <div class='login'>
-                <p><a href='{{route('userLogin')}}'>Login</a></p>
+                <p><a href='{{route('login')}}'>Login</a></p>
             </div>     
         @endguest  
     </div>

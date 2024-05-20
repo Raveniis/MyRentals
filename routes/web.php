@@ -8,8 +8,6 @@ use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantApplicationController;
-use App\Models\HouseRental;
-use App\Models\TenantApplication;
 
 //authentication landowner
 Route::get('/landowner/login', [AuthManager::class, 'ownerLogin'])->name('ownerLogin');
@@ -54,7 +52,7 @@ Route::group(['prefix' => '/landowner', 'middleware' => ['admin']], function () 
 });
 
 //authentication user
-Route::get('/login', [AuthManager::class, 'login'])->name('userLogin');
+Route::get('/login', [AuthManager::class, 'login'])->name('login');
 Route::post('/login', [AuthManager::class, 'loginPost'])->name('userLogin.post');;
 Route::get('/signup', [AuthManager::class, 'signup'])->name('userRegister');
 Route::post('/signup', [AuthManager::class, 'signupPost'])->name('userRegister.post');
@@ -63,13 +61,6 @@ Route::post('/signup', [AuthManager::class, 'signupPost'])->name('userRegister.p
 //user views
 Route::get('/', [HouseRentalController::class, 'getRentals'])->name('index');
 Route::get('/houseRental/{id}', [HouseRentalController::class, 'viewRentals'])->name('houseRentals');
-
-Route::get('/profile', [ProfileController::class, 'userProfile'])->name('userProfile');
-Route::post('/profile/update', [ProfileController::class, 'updateUser'])->name('userProfile.post');
-
-Route::get('/applicationStatus', [TenantApplicationController::class, 'userApplicationStatus'])->name('userApplication');
-
-//review
 
 Route::group(['middleware' => ['auth']], function () {
     //tenant
@@ -82,11 +73,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/review/delete/{id}', [RentalReviewController::class, 'delete']);
 
     Route::get('/history', [TenantController::class, 'userTenant'])->name('userTenant');
+    
+    Route::get('/profile', [ProfileController::class, 'userProfile'])->name('userProfile');
+    Route::post('/profile/update', [ProfileController::class, 'updateUser'])->name('userProfile.post');
+
+    Route::get('/applicationStatus', [TenantApplicationController::class, 'userApplicationStatus'])->name('userApplication');
 
 
-});
-
-//for testing purposes dont mind this
-Route::get('/token', function () {
-    return csrf_token(); 
 });
