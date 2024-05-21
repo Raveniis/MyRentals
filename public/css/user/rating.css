@@ -1,0 +1,21 @@
+.main-container {
+    padding: 0px 80px;
+}
+
+.rating-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-rating {
+    display: flex;
+    flex-direction: row;
+}
+
+.rating-content {
+    padding: 5px 10px;
+}
+
+.product-rating > :nth-child(2) {
+    color: rgb(140, 140, 140)
+}

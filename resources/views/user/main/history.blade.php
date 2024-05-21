@@ -9,6 +9,7 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body> 
@@ -63,7 +64,7 @@
                             @endif
                         </div>
                         <div class="triple-dot" data-dropdown>
-                                <p>Rate</p>
+                             <a href="{{route('houserental.review', ['id' => $tenantApplication->tenantApplication->houseRental->id])}}">Rate</a>
                         </div>
                     </div>
                     @endforeach
@@ -73,6 +74,16 @@
     </div>
 
 </section>
+
+@if(session()->has("success"))
+  <script>
+      Swal.fire(
+          "Success!",
+          "Rentals has been rated.",
+          "success"
+      );
+  </script>
+@endif
 
 {{-- <section id="ratingsForm" class="popup-form">
     <div class ="rate-header">Rate product</div>

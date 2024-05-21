@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantApplicationController;
+use App\Models\RentalReview;
 
 //authentication landowner
 Route::get('/landowner/login', [AuthManager::class, 'ownerLogin'])->name('ownerLogin');
@@ -68,7 +69,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/tenant/applications/{id}/apply', [TenantApplicationController::class, 'apply'])->name('applicationForm.post');
 
     
-    Route::post('/review/{id}', [RentalReviewController::class, 'review']);
+    Route::get('/review/{id}', [RentalReviewController::class, 'reviewForm'])->name('houserental.review');
+    Route::post('/review/{id}', [RentalReviewController::class, 'review'])->name('houserental.reviewPost');
     Route::post('/review/edit/{id}', [RentalReviewController::class, 'edit']);
     Route::delete('/review/delete/{id}', [RentalReviewController::class, 'delete']);
 
@@ -78,6 +80,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/profile/update', [ProfileController::class, 'updateUser'])->name('userProfile.post');
 
     Route::get('/applicationStatus', [TenantApplicationController::class, 'userApplicationStatus'])->name('userApplication');
-
-
 });
+
+
