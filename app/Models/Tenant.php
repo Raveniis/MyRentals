@@ -23,6 +23,10 @@ class Tenant extends Model
         return $this->belongsTo(TenantApplication::class, 'application_id');
     }
 
+    public function paymentLogs() {
+        return $this->hasMany(PaymentLog::class);
+    }
+
     // public function houseRental() {
     //     return $this->belongsTo(HouseRental::class);
     // }

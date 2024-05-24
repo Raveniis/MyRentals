@@ -67,6 +67,9 @@
                             </td>
                             <td class="actions">
                                 @if ($tenant->status === 1)
+                                    <a class="icons" title="Payment logs" style="color:green" href="{{route('paymentLog', ['id' => $tenant->id])}}">
+                                        <i class='bx bx-file'></i>
+                                    </a>
                                     <a class="icons" title="Edit" style="color:orange" href="{{route('tenants.show', ['id' => $tenant->id])}}">
                                         <i class='bx bx-edit' ></i>
                                     </a>

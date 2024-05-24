@@ -10,7 +10,6 @@
     </head>
 
     <body>
-    <!-- Start: Ludens Users - 0 Profile Content -->
     <div class="container-fluid" style="margin-top: 63px;">
         <div class="card shadow mb-3">
             <div class="card-header py-3" style="display: flex"> 
@@ -112,7 +111,7 @@
                 </form>
             </div>
         </div>
-    </div><!-- End: Ludens Users - 0 Profile Content -->
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 {{-- <script src="js/userprofile.js"></script> --}}

@@ -6,6 +6,7 @@ use App\Http\Controllers\HouseRentalController;
 use App\Http\Controllers\RentalReviewController;
 use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PaymentLogController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantApplicationController;
 use App\Models\RentalReview;
@@ -50,6 +51,11 @@ Route::group(['prefix' => '/landowner', 'middleware' => ['admin']], function () 
     Route::post('tenants/edit/{id}', [TenantController::class, 'edit'])->name('tenants.edit');
     Route::get('tenants/remove/{id}', [TenantController::class, 'removeTenant'])->name('tenants.remove');
     Route::get('tenants/delete/{id}', [TenantController::class, 'delete'])->name('tenants.delete');
+
+    // payment log
+    Route::get('tenants/payment/{id}', [PaymentLogController::class, 'index'])->name('paymentLog');
+    Route::post('tenants/payment/{id}', [PaymentLogController::class, 'create'])->name('paymentLog.post');
+
 });
 
 //authentication user
