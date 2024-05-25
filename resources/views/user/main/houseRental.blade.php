@@ -121,7 +121,7 @@
                         
                     @else 
                     <div class="placeholder">
-                        No Product Review Available
+                        No House Rental Review Available
                     </div>
                     @endif
                 </div>

@@ -10,10 +10,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <title>profile</title>
+    <title>Payment log</title>
 </head>
 
-<body>
+<body style="background: white">
 
 
     <div class="container-fluid" style="margin-top: 63px;">
